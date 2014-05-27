@@ -40,7 +40,6 @@ namespace Labyrinth
             Random randomInt = new Random();
             // They are using randomInt to get a random binary number 1 or 0 and then check if the number is 0 (empty position) they are fill the cell with '-' but they still DON'T PRINTING IT (just filling) !!!
 
-
             // what is 7?? we have to know rows and cols
             for (int i = 0; i < 7; i++)
             {
