@@ -8,20 +8,14 @@ namespace Labyrinth
     class Game
     {
         public static bool flag;
-
         public static bool flag2;
-
         public static bool flag3;
-
         public static bool flag4;
-
         public static int positionX;
-
         public static int positionY;
-
         public static int currentMoves;
-
         public static List<Table> scores = new List<Table>(4);
+
         protected static void DisplayLabyrinth(string[,] labyrinth)
         {
             for (int linee = 0; linee < 7; linee++)
