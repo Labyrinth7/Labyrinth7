@@ -1,4 +1,0 @@
-F:\GitHub\High-Quality-Code-Project\bin\Debug\Labyrinth.exe
-F:\GitHub\High-Quality-Code-Project\bin\Debug\Labyrinth.pdb
-F:\GitHub\High-Quality-Code-Project\obj\x86\Debug\Labyrinth.exe
-F:\GitHub\High-Quality-Code-Project\obj\x86\Debug\Labyrinth.pdb
