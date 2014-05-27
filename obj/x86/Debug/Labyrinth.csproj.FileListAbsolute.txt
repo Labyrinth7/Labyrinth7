@@ -7,11 +7,7 @@ D:\Galya\Telerik\KPK\TeamWork\Labyrinth-7\obj\x86\Debug\Labyrinth.pdb
 C:\Users\LnX\Documents\Visual Studio 2013\Projects\Labyrinth7\obj\x86\Debug\Labyrinth.exe
 C:\Users\LnX\Documents\Visual Studio 2013\Projects\Labyrinth7\obj\x86\Debug\Labyrinth.pdb
 =======
-D:\Galya\Telerik\KPK\TeamWork\Labyrinth-7\bin\Debug\Labyrinth.exe
-D:\Galya\Telerik\KPK\TeamWork\Labyrinth-7\bin\Debug\Labyrinth.pdb
-D:\Galya\Telerik\KPK\TeamWork\Labyrinth-7\obj\x86\Debug\Labyrinth.csprojResolveAssemblyReference.cache
-D:\Galya\Telerik\KPK\TeamWork\Labyrinth-7\obj\x86\Debug\Labyrinth.exe
-D:\Galya\Telerik\KPK\TeamWork\Labyrinth-7\obj\x86\Debug\Labyrinth.pdb
-C:\Users\LnX\Documents\Visual Studio 2013\Projects\Labyrinth7\obj\x86\Debug\Labyrinth.exe
-C:\Users\LnX\Documents\Visual Studio 2013\Projects\Labyrinth7\obj\x86\Debug\Labyrinth.pdb
 >>>>>>> 42f89e63ebcfaec34e4dbf5083662e4140f18236
+C:\Users\LnX\Documents\Visual Studio 2013\Projects\Labyrinth7\bin\Debug\Labyrinth.exe
+C:\Users\LnX\Documents\Visual Studio 2013\Projects\Labyrinth7\bin\Debug\Labyrinth.pdb
+C:\Users\LnX\Documents\Visual Studio 2013\Projects\Labyrinth7\obj\x86\Debug\Labyrinth.csprojResolveAssemblyReference.cache
