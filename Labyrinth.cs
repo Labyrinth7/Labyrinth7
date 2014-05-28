@@ -7,6 +7,11 @@ namespace Labyrinth
 
     class Program : Game
     {
+        private const int upperSuccessfulFinish = 0;
+        private const int downSuccessfulFinish = 6;
+        private const int leftSuccessfulFinish = 0;
+        private const int rightSuccesfulFinish = 6;
+
         static void Main(string[] args)
         {
             positionX = positionY = 3;  // player position
@@ -104,8 +109,8 @@ namespace Labyrinth
                 Console.Write("\nEnter your move (L=left, R=right, D=down, U=up): ");
                 // Direction
                 string direction = string.Empty;
-                direction = Console.ReadLine();
-
+                direction = Console.ReadLine().ToLower();
+           
                 // All these cases can be combined in one
                 switch (direction)
                 {
@@ -124,45 +129,14 @@ namespace Labyrinth
 
                         }
 
-                        // Escaping on the right side
-                        if (x == 6)
+                        if (x == downSuccessfulFinish)
                         {
-                            Console.WriteLine("\nCongratulations you escaped with {0} moves.\n", currentMoves);
-                            isInLabyrinth = false;
-                            // isEscaped naturally (not restarted or exit)
-                            isEscapedNaturally = true;
-
+                           isInLabyrinth = SuccessfulEscape(currentMoves);
                         }
 
                         DisplayLabyrinth(labyrinth);
                         break;
-                    case "D":
-                        if (labyrinth[x + 1, y] == "-")
-                        {
-                            // Replacing the current position with '-'
-                            labyrinth[x, y] = "-";
-                            // Move the player
-                            labyrinth[x + 1, y] = "*";
-                            // x it looks like is current position
-                            x++;
-                            currentMoves++;
-                        }
-                        else
-                        {
-                            // The else is for if the next position is 'x' - you can't step on it.
-                            Console.WriteLine("\nInvalid move! \n ");
-
-                        }
-
-                        if (x == 6)
-                        {
-                            Console.WriteLine("\nCongratulations you escaped with {0} moves.\n", currentMoves);
-                            isInLabyrinth = false;
-                            isEscapedNaturally = true;
-                        }
                         // Rendering the next labyrinth
-                        DisplayLabyrinth(labyrinth);
-                        break;
                     case "u":
                         if (labyrinth[x - 1, y] == "-")
                         {
@@ -176,33 +150,9 @@ namespace Labyrinth
                             Console.WriteLine("\nInvalid move! \n ");
                         }
 
-                        if (x == 0)
+                        if (x == upperSuccessfulFinish)
                         {
-                            Console.WriteLine("\nCongratulations you escaped with {0} moves.\n", currentMoves);
-                            isInLabyrinth = false;
-                            isEscapedNaturally = true;
-                        }
-
-                        DisplayLabyrinth(labyrinth);
-                        break;
-                    case "U":
-                        if (labyrinth[x - 1, y] == "-")
-                        {
-                            labyrinth[x, y] = "-";
-                            labyrinth[x - 1, y] = "*";
-                            x--;
-                            currentMoves++;
-                        }
-                        else
-                        {
-                            Console.WriteLine("\nInvalid move! \n ");
-                        }
-
-                        if (x == 0)
-                        {
-                            Console.WriteLine("\nCongratulations you escaped with {0} moves.\n", currentMoves);
-                            isInLabyrinth = false;
-                            isEscapedNaturally = true;
+                            isInLabyrinth = SuccessfulEscape(currentMoves);
                         }
 
                         DisplayLabyrinth(labyrinth);
@@ -220,33 +170,9 @@ namespace Labyrinth
                             Console.WriteLine("\nInvalid move! \n ");
                         }
 
-                        if (y == 6)
+                        if (y == rightSuccesfulFinish)
                         {
-                            Console.WriteLine("\nCongratulations you escaped with {0} moves.\n", currentMoves);
-                            isInLabyrinth = false;
-                            isEscapedNaturally = true;
-                        }
-
-                        DisplayLabyrinth(labyrinth);
-                        break;
-                    case "R":
-                        if (labyrinth[x, y + 1] == "-")
-                        {
-                            labyrinth[x, y] = "-";
-                            labyrinth[x, y + 1] = "*";
-                            y++;
-                            currentMoves++;
-                        }
-                        else
-                        {
-                            Console.WriteLine("\nInvalid move! \n ");
-                        }
-
-                        if (y == 6)
-                        {
-                            Console.WriteLine("\nCongratulations you escaped with {0} moves.\n", currentMoves);
-                            isInLabyrinth = false;
-                            isEscapedNaturally = true;
+                            isInLabyrinth = SuccessfulEscape(currentMoves);
                         }
 
                         DisplayLabyrinth(labyrinth);
@@ -264,33 +190,9 @@ namespace Labyrinth
                             Console.WriteLine("\nInvalid move! \n ");
                         }
 
-                        if (y == 0)
+                        if (y == leftSuccessfulFinish)
                         {
-                            Console.WriteLine("\nCongratulations you escaped with {0} moves.\n", currentMoves);
-                            isInLabyrinth = false;
-                            isEscapedNaturally = true;
-                        }
-
-                        DisplayLabyrinth(labyrinth);
-                        break;
-                    case "L":
-                        if (labyrinth[x, y - 1] == "-")
-                        {
-                            labyrinth[x, y] = "-";
-                            labyrinth[x, y - 1] = "*";
-                            y--;
-                            currentMoves++;
-                        }
-                        else
-                        {
-                            Console.WriteLine("\nInvalid move! \n ");
-                        }
-
-                        if (y == 0)
-                        {
-                            Console.WriteLine("\nCongratulations you escaped with {0} moves.\n", currentMoves);
-                            isInLabyrinth = false;
-                            isEscapedNaturally = true;
+                            isInLabyrinth = SuccessfulEscape(currentMoves);
                         }
 
                         DisplayLabyrinth(labyrinth);
@@ -312,6 +214,15 @@ namespace Labyrinth
                         break;
                 }
             }
+        }
+
+        private static bool SuccessfulEscape(int totalMoves)
+        {
+            Console.WriteLine("\nCongratulations you escaped with {0} moves.\n", totalMoves);
+            bool IsInLabyrinth = false;
+            // isEscaped naturally (not restarted or exit)
+            isEscapedNaturally = true;
+            return IsInLabyrinth;
         }
     }
 }
