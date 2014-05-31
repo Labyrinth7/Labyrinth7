@@ -1,5 +1,0 @@
-C:\Documents and Settings\Producenta\My Documents\GitHub\Labyrinth7\bin\Debug\Labyrinth.exe
-C:\Documents and Settings\Producenta\My Documents\GitHub\Labyrinth7\bin\Debug\Labyrinth.pdb
-C:\Documents and Settings\Producenta\My Documents\GitHub\Labyrinth7\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\Documents and Settings\Producenta\My Documents\GitHub\Labyrinth7\obj\x86\Debug\Labyrinth.exe
-C:\Documents and Settings\Producenta\My Documents\GitHub\Labyrinth7\obj\x86\Debug\Labyrinth.pdb
