@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Labyrinth.Program</StartupObject>
+    <StartupObject>LabyrinthGameEngine.GameEntry</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -46,8 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Game.cs" />
+    <Compile Include="GameEntry.cs" />
     <Compile Include="Labyrinth.cs" />
+    <Compile Include="LabyrinthGame.cs" />
     <Compile Include="Player.cs" />
   </ItemGroup>
   <ItemGroup>

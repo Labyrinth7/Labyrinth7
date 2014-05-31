@@ -1,228 +1,117 @@
-using System;
-using System.Collections.Generic;
-
-// bachka!! yesss
-namespace Labyrinth
+namespace LabyrinthGameEngine
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
-    class Program : Game
+    public static class Labyrinth
     {
-        private const int upperSuccessfulFinish = 0;
-        private const int downSuccessfulFinish = 6;
-        private const int leftSuccessfulFinish = 0;
-        private const int rightSuccesfulFinish = 6;
+        public static bool isLabyrinthValid;
 
-        static void Main(string[] args)
+        public static void DisplayLabyrinth(string[,] labyrinth)
         {
-            positionX = positionY = 3;  // player position
-            flag2 = isPlaying = true;
-            string[,] labyrinth = new string[7, 7];
-
-            while (isPlaying) // IsRunning or IsPlaying
+            // 7 is the rows of labyrinth
+            // This can be optimized by two nested loops iterating by rows and cols
+            for (int linee = 0; linee < 7; linee++)
             {
-                Console.WriteLine("Welcome to \"Labyrinth\" game. Please try to escape. Use 'top' to view the top \nscoreboard,'restart' to start a new game and 'exit' to quit the game.\n ");
-                isLabyrinthValid = isEscapedNaturally = false;
+                string s1 = labyrinth[linee, 0];
+                string s2 = labyrinth[linee, 1];
+                string s3 = labyrinth[linee, 2];
+                string s4 = labyrinth[linee, 3];
+                string s5 = labyrinth[linee, 4];
+                string s6 = labyrinth[linee, 5];
+                string s7 = labyrinth[linee, 6];
 
-                while (isLabyrinthValid == false) // isLabyrinthIntializationIsValid
-                {
-                    LabyrinthGenerator(labyrinth, positionX, positionY);
-                    // Check is the generated labyrinth has a right path
-                    SolutionChecker(labyrinth, positionX, positionY);
-                }
-
-                // After intializing, here the labyrinth is still not rendered
-                // Printing Labyrinth on console
-                DisplayLabyrinth(labyrinth);
-
-                // The actual game - moving and checking
-                Test(labyrinth, flag2, positionX, positionY);
-                
-                while (isEscapedNaturally) //used for adding score only when game is finished naturally and not by the restart command.
-                {
-                    Add(scores, currentMoves);
-                }
+                Console.WriteLine("{0} {1} {2} {3} {4} {5} {6} ", s1, s2, s3, s4, s5, s6, s7);
             }
+            Console.WriteLine();
         }
 
-        static void Add(List<Player> s, int m)
+        // positionX and positionY
+        public static void LabyrinthGenerator(string[,] labyrinth, int x, int y)
         {
-            if (s.Count != 0)
-            {
-                s.Sort(delegate(Player s1, Player s2) { return s1.moves.CompareTo(s2.moves); });
-            }
+            Random randomInt = new Random();
+            // They are using randomInt to get a random binary number 1 or 0 and then check if the number is 0 (empty position) they are fill the cell with '-' but they still DON'T PRINTING IT (just filling) !!!
 
-            if (s.Count == 5)
+            // what is 7?? we have to know rows and cols
+            for (int i = 0; i < 7; i++)
             {
-                if (s[4].moves > m)
+                for (int j = 0; j < 7; j++)
                 {
-                    s.Remove(s[4]);
-                    Console.WriteLine("Please enter your nickname");
-                    string name = Console.ReadLine();
-                    s.Add(new Player(m, name));
-                    Player_(s);
+                    // That converting to string can be removed for optimizing
+                    labyrinth[i, j] = Convert.ToString(randomInt.Next(2));
+                    if (labyrinth[i, j] == "0")
+                    {
+                        labyrinth[i, j] = "-";
+                    }
+                    else
+                    {
+                        labyrinth[i, j] = "x";
+                    }
                 }
             }
-
-            if (s.Count < 5)
-            {
-                Console.WriteLine("Please enter your nickname");
-                string name = Console.ReadLine();
-                s.Add(new Player(m, name));
-                Player_(s);
-            }
-
-            // isEscapedNaturally = false, so the new iteration can begin again
-            isEscapedNaturally = false;
+            // They are placing the starting position using a positionX and Y from Labyrinth class. Variant is to give them as a parameters in method
+            labyrinth[LabyrinthGame.positionX, LabyrinthGame.positionY] = "*";
         }
 
-        // Printing the top 5 results
-        static void Player_(List<Player> scores)
+        public static void SolutionChecker(string[,] labyrinth, int x, int y)
         {
-            Console.WriteLine("\n");
-            if (scores.Count == 0) { Console.WriteLine("The scoreboard is empty! "); }
-            else
+            // X and Y are the current position FOR NOW!!!
+            // isCorrectPath
+            bool checking = true;
+
+            if (labyrinth[x + 1, y] == "x" && labyrinth[x, y + 1] == "x" && labyrinth[x - 1, y] == "x" && labyrinth[x, y - 1] == "x")
             {
-                int i = 1;
-                scores.Sort(delegate(Player s1, Player s2) { return s1.moves.CompareTo(s2.moves); });
-                Console.WriteLine("Top 5: \n");
-                scores.ForEach(delegate(Player s)
+                checking = false;
+            }
+
+            // If there is a correct path while is correct path
+            while (checking)
+            {
+                try
                 {
-                    Console.WriteLine(String.Format(i+". {1} ---> {0} moves", s.moves, s.name));
-                    i++;   
+                    if (labyrinth[x + 1, y] == "-")
+                    {
+                        labyrinth[x + 1, y] = "0";
+                        x++;
+                    }
+                    else if (labyrinth[x, y + 1] == "-")
+                    {
+                        labyrinth[x, y + 1] = "0";
+                        y++;
+                    }
+                    else if (labyrinth[x - 1, y] == "-")
+                    {
+                        labyrinth[x - 1, y] = "0";
+                        x--;
+                    }
+                    else if (labyrinth[x, y - 1] == "-")
+                    {
+                        labyrinth[x, y - 1] = "0";
+                        y--;
+                    }
+                    else
+                    {
+                        checking = false;
+                    }
                 }
-                );
-                Console.WriteLine("\n");
-            }
-        }
-
-        // Reading and displaying the new field
-        static void Test(string[,] labyrinth, bool isInLabyrinth, int x, int y)
-        {
-            // For what is current moves?
-            //flag_temp is for isInLabyrinth
-            // temp_flag is getting value from flag2
-            currentMoves = 0;
-
-            while (isInLabyrinth)  // is in labyrinth
-            {
-                // Reading the direction for moving
-                Console.Write("\nEnter your move (L=left, R=right, D=down, U=up): ");
-                // Direction
-                string direction = string.Empty;
-                direction = Console.ReadLine().ToLower();
-           
-                // All these cases can be combined in one
-                switch (direction)
+                catch (Exception)
                 {
-                    // Checking for lower case? 
-                    case "d":
-                        if (labyrinth[x + 1, y] == "-")
+                    for (int i = 0; i < 7; i++)
+                    {
+                        for (int j = 0; j < 7; j++)
                         {
-                            labyrinth[x, y] = "-";
-                            labyrinth[x + 1, y] = "*";
-                            x++;
-                            currentMoves++;
-                        }
-                        else
-                        {
-                            Console.WriteLine("\nInvalid move! \n ");
-
+                            if (labyrinth[i, j] == "0")
+                            {
+                                labyrinth[i, j] = "-";
+                            }
                         }
 
-                        if (x == downSuccessfulFinish)
-                        {
-                           isInLabyrinth = SuccessfulEscape(currentMoves);
-                        }
-
-                        DisplayLabyrinth(labyrinth);
-                        break;
-                        // Rendering the next labyrinth
-                    case "u":
-                        if (labyrinth[x - 1, y] == "-")
-                        {
-                            labyrinth[x, y] = "-";
-                            labyrinth[x - 1, y] = "*";
-                            x--;
-                            currentMoves++;
-                        }
-                        else
-                        {
-                            Console.WriteLine("\nInvalid move! \n ");
-                        }
-
-                        if (x == upperSuccessfulFinish)
-                        {
-                            isInLabyrinth = SuccessfulEscape(currentMoves);
-                        }
-
-                        DisplayLabyrinth(labyrinth);
-                        break;
-                    case "r":
-                        if (labyrinth[x, y + 1] == "-")
-                        {
-                            labyrinth[x, y] = "-";
-                            labyrinth[x, y + 1] = "*";
-                            y++;
-                            currentMoves++;
-                        }
-                        else
-                        {
-                            Console.WriteLine("\nInvalid move! \n ");
-                        }
-
-                        if (y == rightSuccesfulFinish)
-                        {
-                            isInLabyrinth = SuccessfulEscape(currentMoves);
-                        }
-
-                        DisplayLabyrinth(labyrinth);
-                        break;
-                    case "l":
-                        if (labyrinth[x, y - 1] == "-")
-                        {
-                            labyrinth[x, y] = "-";
-                            labyrinth[x, y - 1] = "*";
-                            y--;
-                            currentMoves++;
-                        }
-                        else
-                        {
-                            Console.WriteLine("\nInvalid move! \n ");
-                        }
-
-                        if (y == leftSuccessfulFinish)
-                        {
-                            isInLabyrinth = SuccessfulEscape(currentMoves);
-                        }
-
-                        DisplayLabyrinth(labyrinth);
-                        break;
-                    case "top":
-                        Player_(scores);
-                        Console.WriteLine("\n");
-                        DisplayLabyrinth(labyrinth);
-                        break;
-                    case "restart":
-                        isInLabyrinth = false;
-                        break;
-                    case "exit":
-                        Console.WriteLine("Good bye!");
-                        Environment.Exit(0);
-                        break;
-                    default:
-                        Console.WriteLine("Invalid command!");
-                        break;
+                        checking = false;
+                        isLabyrinthValid = true;
+                    }
                 }
             }
-        }
-
-        private static bool SuccessfulEscape(int totalMoves)
-        {
-            Console.WriteLine("\nCongratulations you escaped with {0} moves.\n", totalMoves);
-            bool IsInLabyrinth = false;
-            // isEscaped naturally (not restarted or exit)
-            isEscapedNaturally = true;
-            return IsInLabyrinth;
         }
     }
 }
