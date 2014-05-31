@@ -51,7 +51,7 @@ namespace LabyrinthGameEngine
                 }
             }
             // They are placing the starting position using a positionX and Y from Labyrinth class. Variant is to give them as a parameters in method
-            labyrinth[LabyrinthGame.positionX, LabyrinthGame.positionY] = "*";
+            labyrinth[x, y] = "*";
         }
 
         public static void SolutionChecker(string[,] labyrinth, int x, int y)

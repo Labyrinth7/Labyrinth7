@@ -7,3 +7,8 @@ D:\Galya\Telerik\KPK\TeamWork\Working\Labyrinth7Game\GameHandler\bin\Debug\GameH
 D:\Galya\Telerik\KPK\TeamWork\Working\Labyrinth7Game\GameHandler\obj\Debug\GameHandler.csprojResolveAssemblyReference.cache
 D:\Galya\Telerik\KPK\TeamWork\Working\Labyrinth7Game\GameHandler\obj\Debug\GameHandler.dll
 D:\Galya\Telerik\KPK\TeamWork\Working\Labyrinth7Game\GameHandler\obj\Debug\GameHandler.pdb
+D:\Galya\Telerik\KPK\TeamWork\GitHub Repositories\Labyrinth7Game\src\GameHandler\bin\Debug\GameHandler.dll
+D:\Galya\Telerik\KPK\TeamWork\GitHub Repositories\Labyrinth7Game\src\GameHandler\bin\Debug\GameHandler.pdb
+D:\Galya\Telerik\KPK\TeamWork\GitHub Repositories\Labyrinth7Game\src\GameHandler\obj\Debug\GameHandler.csprojResolveAssemblyReference.cache
+D:\Galya\Telerik\KPK\TeamWork\GitHub Repositories\Labyrinth7Game\src\GameHandler\obj\Debug\GameHandler.dll
+D:\Galya\Telerik\KPK\TeamWork\GitHub Repositories\Labyrinth7Game\src\GameHandler\obj\Debug\GameHandler.pdb
