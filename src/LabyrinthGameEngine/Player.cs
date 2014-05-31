@@ -1,4 +1,4 @@
-namespace Labyrinth
+namespace LabyrinthGameEngine
 {
     public class Player
     {
