@@ -44,11 +44,11 @@ namespace Labyrinth
             }
         }
 
-        static void Add(List<Table> s, int m)
+        static void Add(List<Player> s, int m)
         {
             if (s.Count != 0)
             {
-                s.Sort(delegate(Table s1, Table s2) { return s1.moves.CompareTo(s2.moves); });
+                s.Sort(delegate(Player s1, Player s2) { return s1.moves.CompareTo(s2.moves); });
             }
 
             if (s.Count == 5)
@@ -58,8 +58,8 @@ namespace Labyrinth
                     s.Remove(s[4]);
                     Console.WriteLine("Please enter your nickname");
                     string name = Console.ReadLine();
-                    s.Add(new Table(m, name));
-                    Table_(s);
+                    s.Add(new Player(m, name));
+                    Player_(s);
                 }
             }
 
@@ -67,8 +67,8 @@ namespace Labyrinth
             {
                 Console.WriteLine("Please enter your nickname");
                 string name = Console.ReadLine();
-                s.Add(new Table(m, name));
-                Table_(s);
+                s.Add(new Player(m, name));
+                Player_(s);
             }
 
             // isEscapedNaturally = false, so the new iteration can begin again
@@ -76,16 +76,16 @@ namespace Labyrinth
         }
 
         // Printing the top 5 results
-        static void Table_(List<Table> scores)
+        static void Player_(List<Player> scores)
         {
             Console.WriteLine("\n");
             if (scores.Count == 0) { Console.WriteLine("The scoreboard is empty! "); }
             else
             {
                 int i = 1;
-                scores.Sort(delegate(Table s1, Table s2) { return s1.moves.CompareTo(s2.moves); });
+                scores.Sort(delegate(Player s1, Player s2) { return s1.moves.CompareTo(s2.moves); });
                 Console.WriteLine("Top 5: \n");
-                scores.ForEach(delegate(Table s)
+                scores.ForEach(delegate(Player s)
                 {
                     Console.WriteLine(String.Format(i+". {1} ---> {0} moves", s.moves, s.name));
                     i++;   
@@ -198,7 +198,7 @@ namespace Labyrinth
                         DisplayLabyrinth(labyrinth);
                         break;
                     case "top":
-                        Table_(scores);
+                        Player_(scores);
                         Console.WriteLine("\n");
                         DisplayLabyrinth(labyrinth);
                         break;

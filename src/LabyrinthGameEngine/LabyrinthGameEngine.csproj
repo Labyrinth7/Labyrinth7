@@ -48,7 +48,7 @@
   <ItemGroup>
     <Compile Include="Game.cs" />
     <Compile Include="Labyrinth.cs" />
-    <Compile Include="Table.cs" />
+    <Compile Include="Player.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

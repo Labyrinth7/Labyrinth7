@@ -3,3 +3,8 @@ D:\Galya\Telerik\KPK\TeamWork\GitHub Repositories\Labyrinth7\src\LabyrinthGameEn
 D:\Galya\Telerik\KPK\TeamWork\GitHub Repositories\Labyrinth7\src\LabyrinthGameEngine\obj\x86\Debug\LabyrinthGameEngine.csprojResolveAssemblyReference.cache
 D:\Galya\Telerik\KPK\TeamWork\GitHub Repositories\Labyrinth7\src\LabyrinthGameEngine\obj\x86\Debug\LabyrinthGameEngine.exe
 D:\Galya\Telerik\KPK\TeamWork\GitHub Repositories\Labyrinth7\src\LabyrinthGameEngine\obj\x86\Debug\LabyrinthGameEngine.pdb
+D:\Galya\Telerik\KPK\TeamWork\GitHub Repositories\Labyrinth7Game\src\LabyrinthGameEngine\obj\x86\Debug\LabyrinthGameEngine.exe
+D:\Galya\Telerik\KPK\TeamWork\GitHub Repositories\Labyrinth7Game\src\LabyrinthGameEngine\obj\x86\Debug\LabyrinthGameEngine.pdb
+D:\Galya\Telerik\KPK\TeamWork\GitHub Repositories\Labyrinth7Game\src\LabyrinthGameEngine\obj\x86\Debug\LabyrinthGameEngine.csprojResolveAssemblyReference.cache
+D:\Galya\Telerik\KPK\TeamWork\GitHub Repositories\Labyrinth7Game\src\LabyrinthGameEngine\bin\Debug\LabyrinthGameEngine.exe
+D:\Galya\Telerik\KPK\TeamWork\GitHub Repositories\Labyrinth7Game\src\LabyrinthGameEngine\bin\Debug\LabyrinthGameEngine.pdb

@@ -13,7 +13,7 @@ namespace Labyrinth
         public static int positionX;
         public static int positionY;
         public static int currentMoves;
-        public static List<Table> scores = new List<Table>(4);
+        public static List<Player> scores = new List<Player>(4);
 
         protected static void DisplayLabyrinth(string[,] labyrinth)
         {
