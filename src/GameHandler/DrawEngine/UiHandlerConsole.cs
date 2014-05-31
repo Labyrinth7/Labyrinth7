@@ -1,6 +1,5 @@
-﻿namespace GameHandler
+﻿namespace GameHandler.Interfaces
 {
-    using GameHandler.Interfaces;
     using System.Collections.Generic;
 
     public class UiHandlerConsole : IUserInterfaceHandler
