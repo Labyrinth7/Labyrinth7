@@ -54,6 +54,7 @@
     <Compile Include="Labyrinth.cs" />
     <Compile Include="LabyrinthGame.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="RankingTopPlayers.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
