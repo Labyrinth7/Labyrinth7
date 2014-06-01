@@ -3,7 +3,8 @@
     using LabyrinthGameEngine.Interfaces;
     using System;
     using System.Collections.Generic;
-
+    using System.Text;
+    
     public sealed class RankingTopPlayers
     {
         private const int numberOfTopPlayers = 5;
@@ -53,13 +54,15 @@
             }
         }
 
-        // Printing the top 5 results
-        public void PrintTopResults()
+        public string GetTopResults()
         {
-            Console.WriteLine("\n");
+            StringBuilder topResults = new StringBuilder();
+
+            topResults.Append("\n");
+
             if (this.topPlayers.Count == 0)
             {
-                Console.WriteLine("The scoreboard is empty! ");
+                topResults.Append("The scoreboard is empty! ");
             }
             else
             {
@@ -69,16 +72,18 @@
                     return s1.Moves.CompareTo(s2.Moves);
                 });
 
-                Console.WriteLine("Top 5: \n");
+                topResults.Append("Top 5: \n");
 
                 this.topPlayers.ForEach(delegate(IPlayer player)
                 {
-                    Console.WriteLine(String.Format(i + ". {1} ---> {0} moves", player.Moves, player.Name));
+                    topResults.Append(String.Format(i + ". {1} ---> {0} moves", player.Moves, player.Name));
                     i++;
                 });
 
-                Console.WriteLine("\n");
+                topResults.Append("\n");
             }
+
+            return topResults.ToString();
         }
 
         private void AddPlayer(IPlayer currentPlayer)

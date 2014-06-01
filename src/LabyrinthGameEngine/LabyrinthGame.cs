@@ -10,11 +10,6 @@ namespace LabyrinthGameEngine
         private const int labyrinthRows = 7;
         private const int labyrinthCols = 7;
 
-        private const int upperSuccessfulFinish = 0;
-        private const int downSuccessfulFinish = 6;
-        private const int leftSuccessfulFinish = 0;
-        private const int rightSuccesfulFinish = 6;
-
         public LabyrinthGame()
         {
             this.GameState = GameState.New;
@@ -59,126 +54,119 @@ namespace LabyrinthGameEngine
             }
         }
 
-        public void Update()
-        {
-            Console.Write("\nEnter your move (L=left, R=right, D=down, U=up): ");
-
-            string direction = string.Empty;
-            direction = Console.ReadLine().ToLower();
-           
-            switch (direction)
-            {
-                case "d":
-                    if (this.GameBoard[this.Player.PositionY + 1, this.Player.PositionX] == this.GameBoard.BlankSymbol)
-                    {
-                        this.GameBoard[this.Player.PositionY, this.Player.PositionX] = this.GameBoard.BlankSymbol;
-                        this.Player.PositionY++;
-                        this.Player.Moves++;
-                    }
-                    else
-                    {
-                        Console.WriteLine("\nInvalid move! \n ");
-                    }
-
-                    if (this.Player.PositionY == downSuccessfulFinish)
-                    {
-                        SuccessfulEscape();
-                    }
-
-                    break;
-                    // Rendering the nethis.Player.PositionXt labyrinth
-                case "u":
-                    if (this.GameBoard[this.Player.PositionY - 1, this.Player.PositionX] == this.GameBoard.BlankSymbol)
-                    {
-                        this.GameBoard[this.Player.PositionY, this.Player.PositionX] = this.GameBoard.BlankSymbol;
-                        this.Player.PositionY--;
-                        this.Player.Moves++;
-                    }
-                    else
-                    {
-                        Console.WriteLine("\nInvalid move! \n ");
-                    }
-
-                    if (this.Player.PositionX == upperSuccessfulFinish)
-                    {
-                        SuccessfulEscape();
-                    }
-
-                    break;
-                case "r":
-                    if (this.GameBoard[this.Player.PositionY, this.Player.PositionX + 1] == this.GameBoard.BlankSymbol)
-                    {
-                        this.GameBoard[this.Player.PositionY, this.Player.PositionX] = this.GameBoard.BlankSymbol;
-                        this.Player.PositionX++;
-                        this.Player.Moves++;
-                    }
-                    else
-                    {
-                        Console.WriteLine("\nInvalid move! \n ");
-                    }
-
-                    if (this.Player.PositionX == rightSuccesfulFinish)
-                    {
-                        SuccessfulEscape();
-                    }
-
-                    break;
-                case "l":
-                    if (this.GameBoard[this.Player.PositionY, this.Player.PositionX - 1] == this.GameBoard.BlankSymbol)
-                    {
-                        this.GameBoard[this.Player.PositionY, this.Player.PositionX] = this.GameBoard.BlankSymbol;
-                        this.Player.PositionX--;
-                        this.Player.Moves++;
-                    }
-                    else
-                    {
-                        Console.WriteLine("\nInvalid move! \n ");
-                    }
-
-                    if (this.Player.PositionX == leftSuccessfulFinish)
-                    {
-                        SuccessfulEscape();
-                    }
-
-                    break;
-                case "top":
-                    RankingTopPlayers.Instance.PrintTopResults();
-                    Console.WriteLine("\n");
-                    this.GameBoard.Display(this.Player.Position);
-                    break;
-                case "restart":
-                    this.GameState = GameState.Over;
-                    break;
-                case "exit":
-                    Console.WriteLine("Good bye!");
-                    Environment.Exit(0);
-                    break;
-                default:
-                    Console.WriteLine("Invalid command!");
-                    break;
-            }
-        }
-
-        private bool SuccessfulEscape()
-        {
-            this.GameBoard.Display(this.Player.Position);
-            Console.WriteLine("\nCongratulations you escaped with {0} moves.\n", this.Player.Moves);
-            this.GameState = GameState.Over;
-            RankingTopPlayers.Instance.AddToTopResults(this.Player);
-            RankingTopPlayers.Instance.PrintTopResults();
-
-            return false;
-        }
-
         public void Initialize()
         {
             Console.WriteLine("Welcome to \"Labyrinth\" game. Please try to escape. Use 'top' to view the top \nscoreboard, 'restart' to start a new game and 'exit' to quit the game.\n ");
             this.GameState = GameState.Running;
         }
 
+        public void Update()
+        {
+            Console.Write("\nEnter your move (L=left, R=right, D=down, U=up): ");
+
+            string inputCommand = string.Empty;
+            inputCommand = Console.ReadLine().ToLower();
+
+            switch (inputCommand)
+            {
+                case "u":
+                    this.Move(this.GameBoard, this.Player.Position, Direction.Up);
+                    break;
+
+                case "r":
+                    this.Move(this.GameBoard, this.Player.Position, Direction.Right);
+                    break;
+
+                case "d":
+                    this.Move(this.GameBoard, this.Player.Position, Direction.Down);
+                    break;
+
+                case "l":
+                    this.Move(this.GameBoard, this.Player.Position, Direction.Left);
+                    break;
+
+                case "top":
+                    string topResults = RankingTopPlayers.Instance.GetTopResults();
+                    Console.WriteLine(topResults);
+                    Console.WriteLine();
+                    break;
+
+                case "restart":
+                    this.GameState = GameState.New;
+                    break;
+
+                case "exit":
+                    Console.WriteLine("Good bye!");
+                    Environment.Exit(0);
+                    break;
+
+                default:
+                    Console.WriteLine("Invalid command!");
+                    break;
+            }
+        }
+
         public void Draw()
         {
             this.GameBoard.Display(this.Player.Position);
+        }
+
+        private void Move(Labyrinth labyrinth, int[] oldPosition, Direction direction)
+        {
+            int[] newPosition = null;
+
+            switch (direction)
+            {
+                case Direction.Up:
+                    newPosition = new int[] { oldPosition[0], oldPosition[1] - 1 };
+                    break;
+                case Direction.Right:
+                    newPosition = new int[] { oldPosition[0] + 1, oldPosition[1] };
+                    break;
+                case Direction.Down:
+                    newPosition = new int[] { oldPosition[0], oldPosition[1] + 1 };
+                    break;
+                case Direction.Left:
+                    newPosition = new int[] { oldPosition[0] - 1, oldPosition[1] };
+                    break;
+            }
+
+            bool isValidMove = labyrinth[newPosition[1], newPosition[0]] == labyrinth.BlankSymbol;
+
+            if (isValidMove)
+            {
+                this.Player.PositionX = newPosition[0];
+                this.Player.PositionY = newPosition[1];
+                this.Player.Moves++;
+
+                if (this.Player.PositionX == 0 ||
+                    this.Player.PositionX == labyrinthRows - 1 ||
+                    this.Player.PositionY == 0 ||
+                    this.Player.PositionY == labyrinthCols - 1)
+                {
+                    SuccessfulEscape();
+                }
+            }
+            else
+            {
+                Console.WriteLine("\nInvalid move! \n ");
+            }
+        }
+
+        private bool SuccessfulEscape()
+        {
+            this.GameBoard.Display(this.Player.Position);
+
+            Console.WriteLine("\nCongratulations you escaped with {0} moves.\n", this.Player.Moves);
+
+            this.GameState = GameState.Over;
+
+            RankingTopPlayers.Instance.AddToTopResults(this.Player);
+
+            string topResults = RankingTopPlayers.Instance.GetTopResults();
+            Console.WriteLine(topResults);
+
+            return false;
         }
     }
 }
