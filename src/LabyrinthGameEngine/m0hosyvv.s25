@@ -21,6 +21,11 @@
 
         private bool CheckIfAnyExit(Labyrinth labyrinth, int positionX, int positionY)
         {
+            //Console.ReadLine();
+            //labyrinth.Display(new int[] { positionX, positionY });
+            //Console.WriteLine(positionX);
+            //Console.WriteLine(positionY);
+
             char wallSymbol = labyrinth.WallSymbol;
             char blankSymbol = labyrinth.BlankSymbol;
             char visitedSymbol = '0';
@@ -30,7 +35,9 @@
 
             labyrinth[botStartPositionY, botStartPositionX] = visitedSymbol;
 
-            // Border cases START
+            bool isAnyExit = false;
+
+            // Border cases STARTS
             if (botStartPositionX == 0 ||
                 botStartPositionX == labyrinth.Rows - 1 ||
                 botStartPositionY == 0 ||
@@ -46,45 +53,67 @@
             {
                 return false;
             }
-            // Border cases END
+            // Border cases STOPS
 
-            foreach (Direction direction in Enum.GetValues(typeof(Direction)))
+            int nextPositionY;
+            int nextPositionX;
+
+
+            if (Check(labyrinth, botStartPositionX, botStartPositionY, Direction.Up, visitedSymbol, ref isAnyExit))
             {
-                if (Check(labyrinth, botStartPositionX, botStartPositionY, direction, visitedSymbol))
-                {
-                    return true;
-                }
+                return true;
+            }
+
+
+            if (Check(labyrinth, nextPositionX, nextPositionY, Direction.Right, visitedSymbol, ref isAnyExit))
+            {
+                return true;
+            }
+
+            if (Check(labyrinth, nextPositionX, nextPositionY, Direction.Down, visitedSymbol, ref isAnyExit))
+            {
+                return true;
+            }
+
+            if (Check(labyrinth, nextPositionX, nextPositionY, Direction.Left, visitedSymbol, ref isAnyExit))
+            {
+                return true;
             }
 
             return false;
         }
 
-        private bool Check(Labyrinth labyrinth, int botStartPositionX, int botStartPositionY, Direction direction, char visitedSymbol)
+        private bool Check(Labyrinth labyrinth, int botStartPositionX, int botStartPositionY, Direction direction, char visitedSymbol, ref bool isAnyExit)
         {
-            int nextPositionY = botStartPositionY;
-            int nextPositionX = botStartPositionX;
+            int nextPositionY = int.MinValue;
+            int nextPositionX = int.MinValue;
 
             switch(direction)
             {
                 case Direction.Up:
                     nextPositionY = botStartPositionY - 1;
+                    nextPositionX = botStartPositionX;
                     break;
                 case Direction.Right:
+                    nextPositionY = botStartPositionY;
                     nextPositionX = botStartPositionX + 1;
                     break;
                 case Direction.Down:
                     nextPositionY = botStartPositionY + 1;
+                    nextPositionX = botStartPositionX;
                     break;
                 case Direction.Left:
+                    nextPositionY = botStartPositionY;
                     nextPositionX = botStartPositionX - 1;
                     break;
             }
 
-            if (labyrinth[nextPositionY, nextPositionX] == labyrinth.BlankSymbol)
+            if (isAnyExit == false && labyrinth[nextPositionY, nextPositionX] == labyrinth.BlankSymbol)
             {
                 labyrinth[nextPositionY, nextPositionX] = visitedSymbol;
-                
-                if (CheckIfAnyExit(labyrinth, nextPositionX, nextPositionY))
+                isAnyExit = CheckIfAnyExit(labyrinth, nextPositionY, nextPositionX);
+
+                if (isAnyExit)
                 {
                     return true;
                 }

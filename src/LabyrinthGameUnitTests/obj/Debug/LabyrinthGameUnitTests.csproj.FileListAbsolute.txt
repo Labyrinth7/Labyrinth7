@@ -1,0 +1,9 @@
+D:\Galya\Telerik\KPK\TeamWork\GitHub Repositories\Labyrinth7Game\src\LabyrinthGameUnitTests\bin\Debug\LabyrinthGameUnitTests.dll
+D:\Galya\Telerik\KPK\TeamWork\GitHub Repositories\Labyrinth7Game\src\LabyrinthGameUnitTests\bin\Debug\LabyrinthGameUnitTests.pdb
+D:\Galya\Telerik\KPK\TeamWork\GitHub Repositories\Labyrinth7Game\src\LabyrinthGameUnitTests\bin\Debug\LabyrinthGameEngine.exe
+D:\Galya\Telerik\KPK\TeamWork\GitHub Repositories\Labyrinth7Game\src\LabyrinthGameUnitTests\bin\Debug\GameHandler.dll
+D:\Galya\Telerik\KPK\TeamWork\GitHub Repositories\Labyrinth7Game\src\LabyrinthGameUnitTests\bin\Debug\LabyrinthGameEngine.pdb
+D:\Galya\Telerik\KPK\TeamWork\GitHub Repositories\Labyrinth7Game\src\LabyrinthGameUnitTests\bin\Debug\GameHandler.pdb
+D:\Galya\Telerik\KPK\TeamWork\GitHub Repositories\Labyrinth7Game\src\LabyrinthGameUnitTests\obj\Debug\LabyrinthGameUnitTests.csprojResolveAssemblyReference.cache
+D:\Galya\Telerik\KPK\TeamWork\GitHub Repositories\Labyrinth7Game\src\LabyrinthGameUnitTests\obj\Debug\LabyrinthGameUnitTests.dll
+D:\Galya\Telerik\KPK\TeamWork\GitHub Repositories\Labyrinth7Game\src\LabyrinthGameUnitTests\obj\Debug\LabyrinthGameUnitTests.pdb
