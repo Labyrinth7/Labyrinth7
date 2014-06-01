@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Direction.cs" />
     <Compile Include="GameEntry.cs" />
     <Compile Include="Interfaces\IPlayer.cs" />
     <Compile Include="Labyrinth.cs" />

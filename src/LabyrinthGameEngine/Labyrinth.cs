@@ -69,7 +69,7 @@ namespace LabyrinthGameEngine
                 {
                     if (playerPosition[1] == row && playerPosition[0] == col)
                     {
-                        matrixAsStringBuilder.Append('*');
+                        matrixAsStringBuilder.Append(this.PlayerSymbol);
                     }
                     else
                     {
