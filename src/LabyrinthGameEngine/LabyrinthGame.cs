@@ -10,14 +10,10 @@ namespace LabyrinthGameEngine
         private const int labyrinthRows = 7;
         private const int labyrinthCols = 7;
 
-        private string[,] labyrinth;
-
         private const int upperSuccessfulFinish = 0;
         private const int downSuccessfulFinish = 6;
         private const int leftSuccessfulFinish = 0;
         private const int rightSuccesfulFinish = 6;
-
-        public bool isInLabyrinth;
 
         public LabyrinthGame()
         {
@@ -28,24 +24,20 @@ namespace LabyrinthGameEngine
 
             Player = new Player(initialPlayerPositionX, initialPlayerPositionY);
 
-            labyrinth = new string[7, 7];
-
-            Labyrinth.isLabyrinthValid = false;
-
-            while (Labyrinth.isLabyrinthValid == false)
-            {
-                Labyrinth.LabyrinthGenerator(labyrinth, initialPlayerPositionX, initialPlayerPositionY);
-                // Check is the generated labyrinth has a right path
-                Labyrinth.SolutionChecker(labyrinth, initialPlayerPositionX, initialPlayerPositionY);
-            }
-
-            this.isInLabyrinth = true;
+            LabyrinthFactory labyrinthFactory = new LabyrinthFactory();
+            this.GameBoard = labyrinthFactory.CreateLabyrinth(labyrinthRows, labyrinthCols);
         }
 
         public IPlayer Player
         {
             get;
             set;
+        }
+
+        public Labyrinth GameBoard
+        {
+            get;
+            private set;
         }
 
         public GameState GameState
@@ -71,7 +63,9 @@ namespace LabyrinthGameEngine
         {
             this.Player.Moves = 0;
 
-            while (this.isInLabyrinth)
+            bool isInLabyrinth = true;
+
+            while (isInLabyrinth)
             {
                 Console.Write("\nEnter your move (L=left, R=right, D=down, U=up): ");
                 string direction = string.Empty;
@@ -81,10 +75,10 @@ namespace LabyrinthGameEngine
                 switch (direction)
                 {
                     case "d":
-                        if (this.labyrinth[this.Player.PositionX + 1, this.Player.PositionY] == "-")
+                        if (this.GameBoard[this.Player.PositionX + 1, this.Player.PositionY] == this.GameBoard.BlankSymbol)
                         {
-                            this.labyrinth[this.Player.PositionX, this.Player.PositionY] = "-";
-                            this.labyrinth[this.Player.PositionX + 1, this.Player.PositionY] = "*";
+                            this.GameBoard[this.Player.PositionX, this.Player.PositionY] = this.GameBoard.BlankSymbol;
+                            this.GameBoard[this.Player.PositionX + 1, this.Player.PositionY] = this.GameBoard.PlayerSymbol;
                             this.Player.PositionX++;
                             this.Player.Moves++;
                         }
@@ -94,7 +88,7 @@ namespace LabyrinthGameEngine
 
                         }
 
-                        Labyrinth.DisplayLabyrinth(this.labyrinth);
+                        this.GameBoard.Display(this.Player.Position);
 
                         if (this.Player.PositionX == downSuccessfulFinish)
                         {
@@ -104,10 +98,10 @@ namespace LabyrinthGameEngine
                         break;
                         // Rendering the nethis.Player.PositionXt labyrinth
                     case "u":
-                        if (this.labyrinth[this.Player.PositionX - 1, this.Player.PositionY] == "-")
+                        if (this.GameBoard[this.Player.PositionX - 1, this.Player.PositionY] == this.GameBoard.BlankSymbol)
                         {
-                            this.labyrinth[this.Player.PositionX, this.Player.PositionY] = "-";
-                            this.labyrinth[this.Player.PositionX - 1, this.Player.PositionY] = "*";
+                            this.GameBoard[this.Player.PositionX, this.Player.PositionY] = this.GameBoard.BlankSymbol;
+                            this.GameBoard[this.Player.PositionX - 1, this.Player.PositionY] = this.GameBoard.PlayerSymbol;
                             this.Player.PositionX--;
                             this.Player.Moves++;
                         }
@@ -115,20 +109,20 @@ namespace LabyrinthGameEngine
                         {
                             Console.WriteLine("\nInvalid move! \n ");
                         }
-
-                        Labyrinth.DisplayLabyrinth(this.labyrinth);
+                        
+                        this.GameBoard.Display(this.Player.Position);
 
                         if (this.Player.PositionX == upperSuccessfulFinish)
                         {
-                            this.isInLabyrinth = SuccessfulEscape();
+                            isInLabyrinth = SuccessfulEscape();
                         }
 
                         break;
                     case "r":
-                        if (this.labyrinth[this.Player.PositionX, this.Player.PositionY + 1] == "-")
+                        if (this.GameBoard[this.Player.PositionX, this.Player.PositionY + 1] == this.GameBoard.BlankSymbol)
                         {
-                            this.labyrinth[this.Player.PositionX, this.Player.PositionY] = "-";
-                            this.labyrinth[this.Player.PositionX, this.Player.PositionY + 1] = "*";
+                            this.GameBoard[this.Player.PositionX, this.Player.PositionY] = this.GameBoard.BlankSymbol;
+                            this.GameBoard[this.Player.PositionX, this.Player.PositionY + 1] = this.GameBoard.PlayerSymbol;
                             this.Player.PositionY++;
                             this.Player.Moves++;
                         }
@@ -137,19 +131,19 @@ namespace LabyrinthGameEngine
                             Console.WriteLine("\nInvalid move! \n ");
                         }
 
-                        Labyrinth.DisplayLabyrinth(this.labyrinth);
+                        this.GameBoard.Display(this.Player.Position);
 
                         if (this.Player.PositionY == rightSuccesfulFinish)
                         {
-                            this.isInLabyrinth = SuccessfulEscape();
+                            isInLabyrinth = SuccessfulEscape();
                         }
 
                         break;
                     case "l":
-                        if (labyrinth[this.Player.PositionX, this.Player.PositionY - 1] == "-")
+                        if (this.GameBoard[this.Player.PositionX, this.Player.PositionY - 1] == this.GameBoard.BlankSymbol)
                         {
-                            this.labyrinth[this.Player.PositionX, this.Player.PositionY] = "-";
-                            this.labyrinth[this.Player.PositionX, this.Player.PositionY - 1] = "*";
+                            this.GameBoard[this.Player.PositionX, this.Player.PositionY] = this.GameBoard.BlankSymbol;
+                            this.GameBoard[this.Player.PositionX, this.Player.PositionY - 1] = this.GameBoard.PlayerSymbol;
                             this.Player.PositionY--;
                             this.Player.Moves++;
                         }
@@ -158,18 +152,18 @@ namespace LabyrinthGameEngine
                             Console.WriteLine("\nInvalid move! \n ");
                         }
 
-                        Labyrinth.DisplayLabyrinth(this.labyrinth);
+                        this.GameBoard.Display(this.Player.Position);
 
                         if (this.Player.PositionY == leftSuccessfulFinish)
                         {
-                            this.isInLabyrinth = SuccessfulEscape();
+                            isInLabyrinth = SuccessfulEscape();
                         }
 
                         break;
                     case "top":
                         RankingTopPlayers.Instance.PrintTopResults();
                         Console.WriteLine("\n");
-                        Labyrinth.DisplayLabyrinth(labyrinth);
+                        this.GameBoard.Display(this.Player.Position);
                         break;
                     case "restart":
                         isInLabyrinth = false;
@@ -204,7 +198,7 @@ namespace LabyrinthGameEngine
 
         public void Draw()
         {
-            Labyrinth.DisplayLabyrinth(labyrinth);
+            this.GameBoard.Display(this.Player.Position);
         }
     }
 }

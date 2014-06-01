@@ -2,115 +2,114 @@ namespace LabyrinthGameEngine
 {
     using System;
     using System.Linq;
+    using System.Text;
 
-    public static class Labyrinth
+    [Serializable]
+    public class Labyrinth
     {
-        public static bool isLabyrinthValid;
+        private char[,] matrix;
 
-        public static void DisplayLabyrinth(string[,] labyrinth)
+        public Labyrinth(int rows, int cols)
         {
-            // 7 is the rows of labyrinth
-            // This can be optimized by two nested loops iterating by rows and cols
-            for (int linee = 0; linee < 7; linee++)
-            {
-                string s1 = labyrinth[linee, 0];
-                string s2 = labyrinth[linee, 1];
-                string s3 = labyrinth[linee, 2];
-                string s4 = labyrinth[linee, 3];
-                string s5 = labyrinth[linee, 4];
-                string s6 = labyrinth[linee, 5];
-                string s7 = labyrinth[linee, 6];
+            this.Rows = rows;
+            this.Cols = cols;
+            this.CenterOfCols = this.Cols / 2;
+            this.CenterOfRows = this.Rows / 2;
 
-                Console.WriteLine("{0} {1} {2} {3} {4} {5} {6} ", s1, s2, s3, s4, s5, s6, s7);
+            matrix = new char[this.Rows, this.Cols];
+
+            FillMatrix();
+        }
+
+        public char WallSymbol
+        {
+            get
+            {
+                return 'x';
             }
-            Console.WriteLine();
+        }
+        public char BlankSymbol
+        {
+            get
+            {
+                return '-';
+            }
+        }
+        public char PlayerSymbol
+        {
+            get
+            {
+                return '*';
+            }
+        }
+        public int Rows { get; private set; }
+        public int Cols { get; private set; }
+        public int CenterOfCols { get; private set; }
+        public int CenterOfRows { get; private set; }
+
+        public char this[int row, int col]
+        {
+            get
+            {
+                return this.matrix[row, col];
+            }
+            set
+            {
+                this.matrix[row, col] = value;
+            }
+        }
+
+        public void Display(int[] playerPosition)
+        {
+            StringBuilder matrixAsStringBuilder = new StringBuilder();
+
+            for (int row = 0; row < this.Rows; row++)
+            {
+                for (int col = 0; col < this.Cols; col++)
+                {
+                    if (playerPosition[1] == row && playerPosition[0] == col)
+                    {
+                        matrixAsStringBuilder.Append('*');
+                    }
+                    else
+                    {
+                        matrixAsStringBuilder.Append(this.matrix[row, col]);
+                    }
+
+                    if (col < this.Cols - 1)
+                    {
+                        matrixAsStringBuilder.Append(" ");
+                    }
+                }
+                matrixAsStringBuilder.Append("\n");
+            }
+
+            Console.WriteLine(matrixAsStringBuilder.ToString());
         }
 
         // positionX and positionY
-        public static void LabyrinthGenerator(string[,] labyrinth, int x, int y)
+        public void FillMatrix()
         {
             Random randomInt = new Random();
-            // They are using randomInt to get a random binary number 1 or 0 and then check if the number is 0 (empty position) they are fill the cell with '-' but they still DON'T PRINTING IT (just filling) !!!
 
-            // what is 7?? we have to know rows and cols
-            for (int i = 0; i < 7; i++)
+            for (int row = 0; row < this.Rows; row++)
             {
-                for (int j = 0; j < 7; j++)
+                for (int col = 0; col < this.Cols; col++)
                 {
-                    // That converting to string can be removed for optimizing
-                    labyrinth[i, j] = Convert.ToString(randomInt.Next(2));
-                    if (labyrinth[i, j] == "0")
+                    int randomNumber = randomInt.Next(2);
+
+                    if (randomNumber == 0)
                     {
-                        labyrinth[i, j] = "-";
+                        this.matrix[row, col] = '-';
                     }
-                    else
+                    else if (randomNumber == 1)
                     {
-                        labyrinth[i, j] = "x";
+                        this.matrix[row, col] = 'x';
                     }
                 }
             }
-            // They are placing the starting position using a positionX and Y from Labyrinth class. Variant is to give them as a parameters in method
-            labyrinth[x, y] = "*";
-        }
 
-        public static void SolutionChecker(string[,] labyrinth, int x, int y)
-        {
-            // X and Y are the current position FOR NOW!!!
-            // isCorrectPath
-            bool checking = true;
-
-            if (labyrinth[x + 1, y] == "x" && labyrinth[x, y + 1] == "x" && labyrinth[x - 1, y] == "x" && labyrinth[x, y - 1] == "x")
-            {
-                checking = false;
-            }
-
-            // If there is a correct path while is correct path
-            while (checking)
-            {
-                try
-                {
-                    if (labyrinth[x + 1, y] == "-")
-                    {
-                        labyrinth[x + 1, y] = "0";
-                        x++;
-                    }
-                    else if (labyrinth[x, y + 1] == "-")
-                    {
-                        labyrinth[x, y + 1] = "0";
-                        y++;
-                    }
-                    else if (labyrinth[x - 1, y] == "-")
-                    {
-                        labyrinth[x - 1, y] = "0";
-                        x--;
-                    }
-                    else if (labyrinth[x, y - 1] == "-")
-                    {
-                        labyrinth[x, y - 1] = "0";
-                        y--;
-                    }
-                    else
-                    {
-                        checking = false;
-                    }
-                }
-                catch (Exception)
-                {
-                    for (int i = 0; i < 7; i++)
-                    {
-                        for (int j = 0; j < 7; j++)
-                        {
-                            if (labyrinth[i, j] == "0")
-                            {
-                                labyrinth[i, j] = "-";
-                            }
-                        }
-
-                        checking = false;
-                        isLabyrinthValid = true;
-                    }
-                }
-            }
+            this.matrix[this.CenterOfRows, this.CenterOfCols] = '-';
         }
     }
 }
