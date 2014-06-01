@@ -53,6 +53,8 @@
     <Compile Include="Interfaces\IPlayer.cs" />
     <Compile Include="Labyrinth.cs" />
     <Compile Include="LabyrinthGame.cs" />
+    <Compile Include="LabyrinthFactory.cs" />
+    <Compile Include="ObjectCopier.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="RankingTopPlayers.cs" />
   </ItemGroup>
