@@ -87,7 +87,6 @@ namespace LabyrinthGameEngine
             Console.WriteLine(matrixAsStringBuilder.ToString());
         }
 
-        // positionX and positionY
         public void FillMatrix()
         {
             Random randomInt = new Random();
