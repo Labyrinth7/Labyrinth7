@@ -1,6 +1,7 @@
 namespace LabyrinthGameEngine
 {
     using LabyrinthGameEngine.Interfaces;
+    using System;
 
     public class Player : IPlayer
     {
@@ -34,6 +35,10 @@ namespace LabyrinthGameEngine
             }
             set
             {
+                if (value.Length < 2 || string.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentException("The name must be more than 2 letters long", "Name");
+                }
                 this.name = value;
             }
         }

@@ -7,3 +7,12 @@ D:\Galya\Telerik\KPK\TeamWork\GitHub Repositories\Labyrinth7Game\src\LabyrinthGa
 D:\Galya\Telerik\KPK\TeamWork\GitHub Repositories\Labyrinth7Game\src\LabyrinthGameUnitTests\obj\Debug\LabyrinthGameUnitTests.csprojResolveAssemblyReference.cache
 D:\Galya\Telerik\KPK\TeamWork\GitHub Repositories\Labyrinth7Game\src\LabyrinthGameUnitTests\obj\Debug\LabyrinthGameUnitTests.dll
 D:\Galya\Telerik\KPK\TeamWork\GitHub Repositories\Labyrinth7Game\src\LabyrinthGameUnitTests\obj\Debug\LabyrinthGameUnitTests.pdb
+F:\GitHub\High-Quality-Code-Project\src\LabyrinthGameUnitTests\bin\Debug\LabyrinthGameUnitTests.dll
+F:\GitHub\High-Quality-Code-Project\src\LabyrinthGameUnitTests\bin\Debug\LabyrinthGameUnitTests.pdb
+F:\GitHub\High-Quality-Code-Project\src\LabyrinthGameUnitTests\bin\Debug\LabyrinthGameEngine.exe
+F:\GitHub\High-Quality-Code-Project\src\LabyrinthGameUnitTests\bin\Debug\GameHandler.dll
+F:\GitHub\High-Quality-Code-Project\src\LabyrinthGameUnitTests\bin\Debug\LabyrinthGameEngine.pdb
+F:\GitHub\High-Quality-Code-Project\src\LabyrinthGameUnitTests\bin\Debug\GameHandler.pdb
+F:\GitHub\High-Quality-Code-Project\src\LabyrinthGameUnitTests\obj\Debug\LabyrinthGameUnitTests.csprojResolveAssemblyReference.cache
+F:\GitHub\High-Quality-Code-Project\src\LabyrinthGameUnitTests\obj\Debug\LabyrinthGameUnitTests.dll
+F:\GitHub\High-Quality-Code-Project\src\LabyrinthGameUnitTests\obj\Debug\LabyrinthGameUnitTests.pdb
