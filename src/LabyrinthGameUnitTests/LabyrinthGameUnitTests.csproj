@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="TestLabyrinthFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestPlayer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LabyrinthGameEngine\LabyrinthGameEngine.csproj">
