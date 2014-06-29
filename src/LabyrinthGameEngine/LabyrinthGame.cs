@@ -108,7 +108,7 @@ namespace LabyrinthGameEngine
 
         public void Draw()
         {
-            this.GameBoard.Display(this.Player.Position);
+            Console.WriteLine(this.GameBoard.Display(this.Player.Position));
         }
 
         private void Move(Labyrinth labyrinth, int[] oldPosition, Direction direction)
