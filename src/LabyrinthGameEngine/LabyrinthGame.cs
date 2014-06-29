@@ -108,7 +108,8 @@ namespace LabyrinthGameEngine
 
         public void Draw()
         {
-            this.GameBoard.Display(this.Player.Position);
+            Console.WriteLine(this.GameBoard.
+                ConvertLabyrinthToString(this.Player.Position));
         }
 
         private void Move(Labyrinth labyrinth, int[] oldPosition, Direction direction)
@@ -155,7 +156,7 @@ namespace LabyrinthGameEngine
 
         private bool SuccessfulEscape()
         {
-            this.GameBoard.Display(this.Player.Position);
+            this.GameBoard.ConvertLabyrinthToString(this.Player.Position);
 
             Console.WriteLine("\nCongratulations you escaped with {0} moves.\n", this.Player.Moves);
 

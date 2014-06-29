@@ -59,7 +59,7 @@ namespace LabyrinthGameEngine
             }
         }
 
-        public void Display(int[] playerPosition)
+        public string ConvertLabyrinthToString(int[] playerPosition)
         {
             StringBuilder matrixAsStringBuilder = new StringBuilder();
 
@@ -84,7 +84,7 @@ namespace LabyrinthGameEngine
                 matrixAsStringBuilder.Append("\n");
             }
 
-            Console.WriteLine(matrixAsStringBuilder.ToString());
+            return matrixAsStringBuilder.ToString();
         }
 
         public void FillMatrix()
