@@ -59,7 +59,7 @@ namespace LabyrinthGameEngine
             }
         }
 
-        public string Display(int[] playerPosition)
+        public string ConvertLabyrinthToString(int[] playerPosition)
         {
             StringBuilder matrixAsStringBuilder = new StringBuilder();
 

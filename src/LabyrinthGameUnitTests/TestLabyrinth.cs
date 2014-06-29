@@ -30,7 +30,7 @@
             labyrinth[2, 1] = 'x';
             labyrinth[2, 2] = '-';
 
-            string actualResult = labyrinth.Display(playerPosition);
+            string actualResult = labyrinth.ConvertLabyrinthToString(playerPosition);
             Assert.AreEqual(actualResult, expectedResult);
         }
     }
