@@ -1,0 +1,5 @@
+C:\Users\User\Documents\GitHub\Labyrinth7Game\src\GameHandler\bin\Debug\GameHandler.dll
+C:\Users\User\Documents\GitHub\Labyrinth7Game\src\GameHandler\bin\Debug\GameHandler.pdb
+C:\Users\User\Documents\GitHub\Labyrinth7Game\src\GameHandler\obj\Debug\GameHandler.csprojResolveAssemblyReference.cache
+C:\Users\User\Documents\GitHub\Labyrinth7Game\src\GameHandler\obj\Debug\GameHandler.dll
+C:\Users\User\Documents\GitHub\Labyrinth7Game\src\GameHandler\obj\Debug\GameHandler.pdb
