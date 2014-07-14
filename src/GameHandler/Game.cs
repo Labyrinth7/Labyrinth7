@@ -42,7 +42,9 @@
             }
             private set
             {
-                this.currentGame = value;
+                if (value is IGame) {
+                    this.currentGame = value;
+                }
             }
         }
 
@@ -59,6 +61,7 @@
                 switch (this.CurrentGame.GameState)
                 {
                     case GameState.New:
+                    case GameState.Over:
                         Initialize();
                         break;
                     case GameState.Running:
@@ -66,6 +69,7 @@
                         Update();
                         break;
                     case GameState.Quit:
+                        Console.WriteLine("Good bye!");
                         Environment.Exit(0);
                         break;
                 }
