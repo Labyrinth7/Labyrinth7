@@ -1,0 +1,8 @@
+C:\Users\User\Documents\GitHub\Labyrinth7Game\src\LabyrinthGameEngine\bin\Debug\LabyrinthGameEngine.exe.config
+C:\Users\User\Documents\GitHub\Labyrinth7Game\src\LabyrinthGameEngine\bin\Debug\LabyrinthGameEngine.exe
+C:\Users\User\Documents\GitHub\Labyrinth7Game\src\LabyrinthGameEngine\bin\Debug\LabyrinthGameEngine.pdb
+C:\Users\User\Documents\GitHub\Labyrinth7Game\src\LabyrinthGameEngine\bin\Debug\GameHandler.dll
+C:\Users\User\Documents\GitHub\Labyrinth7Game\src\LabyrinthGameEngine\bin\Debug\GameHandler.pdb
+C:\Users\User\Documents\GitHub\Labyrinth7Game\src\LabyrinthGameEngine\obj\x86\Debug\LabyrinthGameEngine.csprojResolveAssemblyReference.cache
+C:\Users\User\Documents\GitHub\Labyrinth7Game\src\LabyrinthGameEngine\obj\x86\Debug\LabyrinthGameEngine.exe
+C:\Users\User\Documents\GitHub\Labyrinth7Game\src\LabyrinthGameEngine\obj\x86\Debug\LabyrinthGameEngine.pdb
