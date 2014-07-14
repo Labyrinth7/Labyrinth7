@@ -1,4 +1,4 @@
-﻿namespace LabyrinthGameEngine
+﻿namespace LabyrinthGameEngine.Utils
 {
     using System;
     using System.IO;

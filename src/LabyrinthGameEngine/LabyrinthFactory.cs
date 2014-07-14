@@ -1,10 +1,11 @@
 ﻿namespace LabyrinthGameEngine
 {
+    using LabyrinthGameEngine.Utils;
     using System;
 
-    public class LabyrinthFactory
+    internal class LabyrinthFactory
     {
-        public Labyrinth CreateLabyrinth(int labyrinthRows, int labyrinthCols)
+        internal Labyrinth CreateLabyrinth(int labyrinthRows, int labyrinthCols)
         {
             Labyrinth currentLabyrinth = new Labyrinth(labyrinthRows, labyrinthCols);
 
@@ -21,8 +22,6 @@
 
         private bool CheckIfAnyExit(Labyrinth labyrinth, int positionX, int positionY)
         {
-            char wallSymbol = labyrinth.WallSymbol;
-            char blankSymbol = labyrinth.BlankSymbol;
             char visitedSymbol = '0';
 
             int botStartPositionX = positionX;
@@ -39,10 +38,10 @@
                 return true;
             }
 
-            if (labyrinth[botStartPositionY + 1, botStartPositionX] == wallSymbol &&
-                labyrinth[botStartPositionY, botStartPositionX + 1] == wallSymbol &&
-                labyrinth[botStartPositionY - 1, botStartPositionX] == wallSymbol &&
-                labyrinth[botStartPositionY, botStartPositionX - 1] == wallSymbol)
+            if (labyrinth[botStartPositionY + 1, botStartPositionX] == Labyrinth.WALL_SYMBOL &&
+                labyrinth[botStartPositionY, botStartPositionX + 1] == Labyrinth.WALL_SYMBOL &&
+                labyrinth[botStartPositionY - 1, botStartPositionX] == Labyrinth.WALL_SYMBOL &&
+                labyrinth[botStartPositionY, botStartPositionX - 1] == Labyrinth.WALL_SYMBOL)
             {
                 return false;
             }
@@ -50,7 +49,7 @@
 
             foreach (Direction direction in Enum.GetValues(typeof(Direction)))
             {
-                if (Check(labyrinth, botStartPositionX, botStartPositionY, direction, visitedSymbol))
+                if (IsEmptyCell(labyrinth, botStartPositionX, botStartPositionY, direction, visitedSymbol))
                 {
                     return true;
                 }
@@ -59,8 +58,10 @@
             return false;
         }
 
-        private bool Check(Labyrinth labyrinth, int botStartPositionX, int botStartPositionY, Direction direction, char visitedSymbol)
+        private bool IsEmptyCell(Labyrinth labyrinth, int botStartPositionX, int botStartPositionY, Direction direction, char visitedSymbol)
         {
+            bool isEmpty = false;
+
             int nextPositionY = botStartPositionY;
             int nextPositionX = botStartPositionX;
 
@@ -80,16 +81,16 @@
                     break;
             }
 
-            if (labyrinth[nextPositionY, nextPositionX] == labyrinth.BlankSymbol)
+            if (labyrinth[nextPositionY, nextPositionX] == Labyrinth.BLANK_SYMBOL)
             {
                 labyrinth[nextPositionY, nextPositionX] = visitedSymbol;
                 
                 if (CheckIfAnyExit(labyrinth, nextPositionX, nextPositionY))
                 {
-                    return true;
+                    isEmpty = true;
                 }
             }
-            return false;
+            return isEmpty;
         }
     }
 }

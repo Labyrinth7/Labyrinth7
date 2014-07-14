@@ -5,7 +5,7 @@
     using System.Collections.Generic;
     using System.Text;
     
-    public sealed class RankingTopPlayers
+    internal sealed class RankingTopPlayers
     {
         private const int numberOfTopPlayers = 5;
 
@@ -17,7 +17,7 @@
         {
         }
 
-        public static RankingTopPlayers Instance
+        internal static RankingTopPlayers Instance
         {
             get
             {
@@ -29,7 +29,7 @@
             }
         }
 
-        public void AddToTopResults(IPlayer currentPlayer)
+        internal void AddToTopResults(IPlayer currentPlayer)
         {
             int currentNumberOfPlayersInTop = this.topPlayers.Count;
 
@@ -54,7 +54,7 @@
             }
         }
 
-        public string GetTopResults()
+        internal string GetTopResults()
         {
             StringBuilder topResults = new StringBuilder();
 
@@ -76,7 +76,7 @@
 
                 this.topPlayers.ForEach(delegate(IPlayer player)
                 {
-                    topResults.Append(String.Format(i + ". {1} ---> {0} moves", player.Moves, player.Name));
+                    topResults.AppendLine(String.Format(i + ". {1} ---> {0} moves", player.Moves, player.Name));
                     i++;
                 });
 

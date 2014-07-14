@@ -3,7 +3,7 @@ namespace LabyrinthGameEngine
     using LabyrinthGameEngine.Interfaces;
     using System;
 
-    public class Player : IPlayer
+    internal class Player : IPlayer
     {
         private int moves = 0;
         private string name = string.Empty;
@@ -63,8 +63,10 @@ namespace LabyrinthGameEngine
             }
             set
             {
-                this.PositionX = value[0];
-                this.PositionY = value[1];
+                if (value is int[]) {
+                    this.PositionX = value[0];
+                    this.PositionY = value[1];
+                }
             }
         }
     }
