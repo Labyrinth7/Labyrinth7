@@ -3,7 +3,6 @@
     using System;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using LabyrinthGameEngine;
-    using System.Text;
 
     [TestClass]
     public class TestLabyrinth
@@ -11,10 +10,7 @@
         [TestMethod]
         public void TestDisplayMethod()
         {
-            string expectedResult = "- x -\nx * x\n- x -\n";
-            int[] playerPosition = new int[2];
-            playerPosition[0] = 1;
-            playerPosition[1] = 1;
+            string expectedResult = "- x -" + Environment.NewLine + "x * x" + Environment.NewLine + "- x -";
 
             int labyrinthRows = 3;
             int labyrinthCols = 3;
@@ -30,7 +26,9 @@
             labyrinth[2, 1] = 'x';
             labyrinth[2, 2] = '-';
 
-            string actualResult = labyrinth.ConvertLabyrinthToString(playerPosition);
+            int[] playerPosition = new int[] { 1, 1 };
+            string actualResult = labyrinth.AddPlayerToLabyrinth(playerPosition);
+
             Assert.AreEqual(actualResult, expectedResult);
         }
     }

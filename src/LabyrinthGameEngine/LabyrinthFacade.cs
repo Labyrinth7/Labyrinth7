@@ -140,7 +140,8 @@
 
         internal void DrawGameBoard()
         {
-            this.GameBoard.Display(this.Player.Position);
+            string labyrinthWithPlayer = this.GameBoard.AddPlayerToLabyrinth(this.Player.Position);
+            Console.WriteLine(labyrinthWithPlayer);
         }
 
         private void Move(Labyrinth labyrinth, int[] newPosition)
@@ -167,7 +168,7 @@
 
         private void SuccessfulEscape()
         {
-            this.GameBoard.Display(this.Player.Position);
+            this.GameBoard.AddPlayerToLabyrinth(this.Player.Position);
 
             Console.WriteLine("\nCongratulations you escaped with {0} moves.\n", this.Player.Moves);
 

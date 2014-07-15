@@ -1,11 +1,12 @@
 namespace LabyrinthGameEngine
 {
     using System;
+    using System.Collections;
     using System.Linq;
     using System.Text;
 
     [Serializable]
-    internal class Labyrinth
+    internal class Labyrinth : IEnumerable
     {
         internal const char WALL_SYMBOL = 'x';
         internal const char BLANK_SYMBOL = '-';
@@ -42,32 +43,23 @@ namespace LabyrinthGameEngine
             }
         }
 
-        internal void Display(int[] playerPosition)
+        internal string AddPlayerToLabyrinth(int[] playerPosition)
         {
-            StringBuilder matrixAsStringBuilder = new StringBuilder();
+            string labyrinthAsString = this.ToString();
 
-            for (int row = 0; row < this.Rows; row++)
-            {
-                for (int col = 0; col < this.Cols; col++)
-                {
-                    if (playerPosition[1] == row && playerPosition[0] == col)
-                    {
-                        matrixAsStringBuilder.Append(Labyrinth.PLAYER_SYMBOL);
-                    }
-                    else
-                    {
-                        matrixAsStringBuilder.Append(this.matrix[row, col]);
-                    }
+            char[] whitespace = new char[] { ' ' };
+            string[] cells = labyrinthAsString.Split(whitespace);
 
-                    if (col < this.Cols - 1)
-                    {
-                        matrixAsStringBuilder.Append(" ");
-                    }
-                }
-                matrixAsStringBuilder.Append("\n");
-            }
+            int rowNumber = playerPosition[1];
+            int colNumber = playerPosition[0];
 
-            Console.WriteLine(matrixAsStringBuilder.ToString());
+            int newLinesNumber = rowNumber;
+            int cellWithPlayerNumber = rowNumber * this.Cols + colNumber - newLinesNumber;
+
+            cells[cellWithPlayerNumber] = Labyrinth.PLAYER_SYMBOL.ToString();
+            string labyrinthWithPlayer = String.Join(" ", cells);
+
+            return labyrinthWithPlayer;
         }
 
         internal void FillMatrix()
@@ -92,6 +84,42 @@ namespace LabyrinthGameEngine
             }
 
             this.matrix[this.CenterOfRows, this.CenterOfCols] = Labyrinth.BLANK_SYMBOL;
+        }
+
+        internal string ToString()
+        {
+            StringBuilder matrixAsStringBuilder = new StringBuilder();
+            
+            int index = 1;
+            int lastCellNumber = this.Cols * this.Rows;
+
+            foreach (var cell in this) {
+                matrixAsStringBuilder.Append(cell);
+
+                if (index % this.Cols != 0)
+                {
+                    matrixAsStringBuilder.Append(" ");
+                }
+                else if (index != lastCellNumber)
+                {
+                    matrixAsStringBuilder.Append(Environment.NewLine);
+                }
+
+                index++;
+            }
+
+            return matrixAsStringBuilder.ToString();
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            for (int row = 0; row < this.Rows; row++)
+            {
+                for (int col = 0; col < this.Cols; col++)
+                {
+                    yield return this.matrix[row, col];
+                }
+            }
         }
     }
 }

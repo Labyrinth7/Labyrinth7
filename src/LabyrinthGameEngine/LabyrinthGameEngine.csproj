@@ -56,13 +56,12 @@
     <Compile Include="LabyrinthFacade.cs" />
     <Compile Include="LabyrinthGame.cs" />
     <Compile Include="LabyrinthFactory.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\ObjectCopier.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="RankingTopPlayers.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\GameHandler\GameHandler.csproj">
       <Project>{12f6944a-465b-43af-8494-547b328c9ecd}</Project>
