@@ -5,11 +5,15 @@ namespace LabyrinthGameEngine
     using System.Text;
 
     [Serializable]
-    public class Labyrinth
+    internal class Labyrinth
     {
+        internal const char WALL_SYMBOL = 'x';
+        internal const char BLANK_SYMBOL = '-';
+        internal const char PLAYER_SYMBOL = '*';
+
         private char[,] matrix;
 
-        public Labyrinth(int rows, int cols)
+        internal Labyrinth(int rows, int cols)
         {
             this.Rows = rows;
             this.Cols = cols;
@@ -21,33 +25,12 @@ namespace LabyrinthGameEngine
             FillMatrix();
         }
 
-        public char WallSymbol
-        {
-            get
-            {
-                return 'x';
-            }
-        }
-        public char BlankSymbol
-        {
-            get
-            {
-                return '-';
-            }
-        }
-        public char PlayerSymbol
-        {
-            get
-            {
-                return '*';
-            }
-        }
-        public int Rows { get; private set; }
-        public int Cols { get; private set; }
-        public int CenterOfCols { get; private set; }
-        public int CenterOfRows { get; private set; }
+        internal int Rows { get; private set; }
+        internal int Cols { get; private set; }
+        internal int CenterOfCols { get; private set; }
+        internal int CenterOfRows { get; private set; }
 
-        public char this[int row, int col]
+        internal char this[int row, int col]
         {
             get
             {
@@ -59,7 +42,7 @@ namespace LabyrinthGameEngine
             }
         }
 
-        public string ConvertLabyrinthToString(int[] playerPosition)
+        internal void Display(int[] playerPosition)
         {
             StringBuilder matrixAsStringBuilder = new StringBuilder();
 
@@ -69,7 +52,7 @@ namespace LabyrinthGameEngine
                 {
                     if (playerPosition[1] == row && playerPosition[0] == col)
                     {
-                        matrixAsStringBuilder.Append(this.PlayerSymbol);
+                        matrixAsStringBuilder.Append(Labyrinth.PLAYER_SYMBOL);
                     }
                     else
                     {
@@ -84,10 +67,10 @@ namespace LabyrinthGameEngine
                 matrixAsStringBuilder.Append("\n");
             }
 
-            return matrixAsStringBuilder.ToString();
+            Console.WriteLine(matrixAsStringBuilder.ToString());
         }
 
-        public void FillMatrix()
+        internal void FillMatrix()
         {
             Random randomInt = new Random();
 
@@ -99,16 +82,16 @@ namespace LabyrinthGameEngine
 
                     if (randomNumber == 0)
                     {
-                        this.matrix[row, col] = '-';
+                        this.matrix[row, col] = Labyrinth.BLANK_SYMBOL;
                     }
                     else if (randomNumber == 1)
                     {
-                        this.matrix[row, col] = 'x';
+                        this.matrix[row, col] = Labyrinth.WALL_SYMBOL;
                     }
                 }
             }
 
-            this.matrix[this.CenterOfRows, this.CenterOfCols] = '-';
+            this.matrix[this.CenterOfRows, this.CenterOfCols] = Labyrinth.BLANK_SYMBOL;
         }
     }
 }
