@@ -4,15 +4,14 @@
     using System;
     using System.Collections.Generic;
     using System.Text;
-    
+
     internal sealed class RankingTopPlayers
     {
-        private const int numberOfTopPlayers = 5;
-
-        private static RankingTopPlayers instance = null;
+        private const int NUMBER_OF_TOP_PLAYERS = 5;
 
         private List<IPlayer> topPlayers = new List<IPlayer>();
 
+        private static RankingTopPlayers instance = null;
         private RankingTopPlayers()
         {
         }
@@ -33,11 +32,11 @@
         {
             int currentNumberOfPlayersInTop = this.topPlayers.Count;
 
-            if (currentNumberOfPlayersInTop >= 0 && currentNumberOfPlayersInTop < numberOfTopPlayers)
+            if (currentNumberOfPlayersInTop >= 0 && currentNumberOfPlayersInTop < RankingTopPlayers.NUMBER_OF_TOP_PLAYERS)
             {
                 AddPlayer(currentPlayer);
             }
-            else if (currentNumberOfPlayersInTop == numberOfTopPlayers)
+            else if (currentNumberOfPlayersInTop == RankingTopPlayers.NUMBER_OF_TOP_PLAYERS)
             {
                 this.topPlayers.Sort(delegate(IPlayer player1, IPlayer player2)
                 {
@@ -58,7 +57,7 @@
         {
             StringBuilder topResults = new StringBuilder();
 
-            topResults.Append("\n");
+            topResults.Append(Environment.NewLine);
 
             if (this.topPlayers.Count == 0)
             {
@@ -66,21 +65,19 @@
             }
             else
             {
-                int i = 1;
-                this.topPlayers.Sort(delegate(IPlayer s1, IPlayer s2)
-                {
-                    return s1.Moves.CompareTo(s2.Moves);
+                String title = "Top " + RankingTopPlayers.NUMBER_OF_TOP_PLAYERS + ": " + Environment.NewLine;
+                topResults.Append(title);
+
+                this.topPlayers.Sort((player1, player2) => player1.Moves.CompareTo(player2.Moves));
+
+                int positionNumber = 1;
+                this.topPlayers.ForEach(player => {
+                    String line = String.Format(positionNumber + ". {1} ---> {0} moves", player.Moves, player.Name);
+                    topResults.AppendLine(line);
+                    positionNumber++;
                 });
 
-                topResults.Append("Top 5: \n");
-
-                this.topPlayers.ForEach(delegate(IPlayer player)
-                {
-                    topResults.AppendLine(String.Format(i + ". {1} ---> {0} moves", player.Moves, player.Name));
-                    i++;
-                });
-
-                topResults.Append("\n");
+                topResults.Append(Environment.NewLine);
             }
 
             return topResults.ToString();
