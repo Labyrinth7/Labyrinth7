@@ -51,9 +51,11 @@
   <ItemGroup>
     <Compile Include="Direction.cs" />
     <Compile Include="GameEntry.cs" />
+    <Compile Include="Interfaces\ILabyrinth.cs" />
     <Compile Include="Interfaces\IPlayer.cs" />
     <Compile Include="Labyrinth.cs" />
     <Compile Include="LabyrinthFacade.cs" />
+    <Compile Include="LabyrinthFactoryAbstract.cs" />
     <Compile Include="LabyrinthGame.cs" />
     <Compile Include="LabyrinthFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

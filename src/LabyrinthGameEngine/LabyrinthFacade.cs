@@ -73,7 +73,7 @@
             }
         }
 
-        private Labyrinth GameBoard
+        private ILabyrinth GameBoard
         {
             get;
             set;
@@ -144,7 +144,7 @@
             Console.WriteLine(labyrinthWithPlayer);
         }
 
-        private void Move(Labyrinth labyrinth, int[] newPosition)
+        private void Move(ILabyrinth labyrinth, int[] newPosition)
         {
             bool isValidMove = labyrinth[newPosition[1], newPosition[0]] == Labyrinth.BLANK_SYMBOL;
 

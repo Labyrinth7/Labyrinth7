@@ -6,7 +6,7 @@ namespace LabyrinthGameEngine
     using System.Text;
 
     [Serializable]
-    internal class Labyrinth : IEnumerable
+    internal class Labyrinth : ILabyrinth, IEnumerable
     {
         internal const char WALL_SYMBOL = 'x';
         internal const char BLANK_SYMBOL = '-';
@@ -14,24 +14,29 @@ namespace LabyrinthGameEngine
 
         private char[,] matrix;
 
-        internal Labyrinth(int rows, int cols)
+        internal Labyrinth(char[,] matrix)
         {
-            this.Rows = rows;
-            this.Cols = cols;
-            this.CenterOfCols = this.Cols / 2;
-            this.CenterOfRows = this.Rows / 2;
+            this.Rows = matrix.GetLength(0);
+            this.Cols = matrix.GetLength(1);
 
-            matrix = new char[this.Rows, this.Cols];
-
-            FillMatrix();
+            this.matrix = matrix;
         }
 
         internal int Rows { get; private set; }
         internal int Cols { get; private set; }
-        internal int CenterOfCols { get; private set; }
-        internal int CenterOfRows { get; private set; }
 
-        internal char this[int row, int col]
+        public IEnumerator GetEnumerator()
+        {
+            for (int row = 0; row < this.Rows; row++)
+            {
+                for (int col = 0; col < this.Cols; col++)
+                {
+                    yield return this.matrix[row, col];
+                }
+            }
+        }
+
+        public char this[int row, int col]
         {
             get
             {
@@ -43,7 +48,7 @@ namespace LabyrinthGameEngine
             }
         }
 
-        internal string AddPlayerToLabyrinth(int[] playerPosition)
+        public string AddPlayerToLabyrinth(int[] playerPosition)
         {
             string labyrinthAsString = this.ToString();
 
@@ -62,31 +67,7 @@ namespace LabyrinthGameEngine
             return labyrinthWithPlayer;
         }
 
-        internal void FillMatrix()
-        {
-            Random randomInt = new Random();
-
-            for (int row = 0; row < this.Rows; row++)
-            {
-                for (int col = 0; col < this.Cols; col++)
-                {
-                    int randomNumber = randomInt.Next(2);
-
-                    if (randomNumber == 0)
-                    {
-                        this.matrix[row, col] = Labyrinth.BLANK_SYMBOL;
-                    }
-                    else if (randomNumber == 1)
-                    {
-                        this.matrix[row, col] = Labyrinth.WALL_SYMBOL;
-                    }
-                }
-            }
-
-            this.matrix[this.CenterOfRows, this.CenterOfCols] = Labyrinth.BLANK_SYMBOL;
-        }
-
-        internal string ToString()
+        public override string ToString()
         {
             StringBuilder matrixAsStringBuilder = new StringBuilder();
             
@@ -109,17 +90,6 @@ namespace LabyrinthGameEngine
             }
 
             return matrixAsStringBuilder.ToString();
-        }
-
-        public IEnumerator GetEnumerator()
-        {
-            for (int row = 0; row < this.Rows; row++)
-            {
-                for (int col = 0; col < this.Cols; col++)
-                {
-                    yield return this.matrix[row, col];
-                }
-            }
         }
     }
 }
