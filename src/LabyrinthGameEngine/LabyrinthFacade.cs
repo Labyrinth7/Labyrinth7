@@ -119,7 +119,7 @@
             this.Move(this.GameBoard, newPosition);
         }
 
-        internal void GetTopPlayers()
+        internal void DisplayTopPlayers()
         {
             string topResults = RankingTopPlayers.Instance.GetTopResults();
             Console.WriteLine(topResults);

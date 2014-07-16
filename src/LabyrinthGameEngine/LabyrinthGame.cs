@@ -8,7 +8,7 @@ namespace LabyrinthGameEngine
         public const int LABYRINTH_COLS = 7;
         public const int LABYRINTH_ROWS = 7;
 
-        private LabyrinthFacade fascade;
+        private LabyrinthFacade fascade = null;
 
         public LabyrinthGame()
         {
@@ -52,7 +52,7 @@ namespace LabyrinthGameEngine
                         this.fascade.MoveLeft();
                         break;
                     case "top":
-                        this.fascade.GetTopPlayers();
+                        this.fascade.DisplayTopPlayers();
                         break;
                     case "restart":
                         this.fascade.RestartGame();

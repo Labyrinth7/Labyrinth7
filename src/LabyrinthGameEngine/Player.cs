@@ -67,6 +67,10 @@ namespace LabyrinthGameEngine
                     this.PositionX = value[0];
                     this.PositionY = value[1];
                 }
+                else
+                {
+                    throw new ArgumentException("The value type for the player position is not correct.");
+                }
             }
         }
     }
