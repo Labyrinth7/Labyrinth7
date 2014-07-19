@@ -5,6 +5,9 @@
 
     public static class GameEntry
     {
+        /// <summary>
+        /// Entry point for Labyrith game
+        /// </summary>
         public static void Main()
         {
             Type gameType = new LabyrinthGame().GetType();

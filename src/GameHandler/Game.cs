@@ -15,6 +15,9 @@
         {
         }
 
+        /// <summary>
+        /// Returns the instance of the Game object.
+        /// </summary>
         public static Game Instance
         {
             get
@@ -34,6 +37,9 @@
             private set;
         }
 
+        /// <summary>
+        /// Gets or sets the current game object.
+        /// </summary>
         public IGame CurrentGame
         {
             get
@@ -48,6 +54,11 @@
             }
         }
 
+        /// <summary>
+        /// Runs the game
+        /// </summary>
+        /// <param name="gameType">Selected gametype.</param>
+        /// <param name="userInterface">Selected UI.</param>
         public void Run(Type gameType, UserInterface userInterface)
         {
             this.currentUi = userInterface;
@@ -76,12 +87,18 @@
             }
         }
 
+        /// <summary>
+        /// Initializes a new game.
+        /// </summary>
         private void Initialize()
         {
             this.CurrentGame = (IGame)Activator.CreateInstance(this.GameType);
             this.CurrentGame.Initialize();
         }
 
+        /// <summary>
+        /// Updates the current game.
+        /// </summary>
         private void Update()
         {
             this.CurrentGame.Update();
@@ -92,6 +109,9 @@
             }
         }
 
+        /// <summary>
+        /// Draws the game board.
+        /// </summary>
         private void Draw()
         {
             //drawHandler.Draw();

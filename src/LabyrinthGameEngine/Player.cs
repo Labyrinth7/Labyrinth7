@@ -3,6 +3,9 @@ namespace LabyrinthGameEngine
     using LabyrinthGameEngine.Interfaces;
     using System;
 
+    /// <summary>
+    /// Class representing the player
+    /// </summary>
     internal class Player : IPlayer
     {
         private int moves = 0;

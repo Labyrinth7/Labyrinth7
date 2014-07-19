@@ -22,11 +22,17 @@
             }
         }
 
+        /// <summary>
+        /// Draws all drawable objects.
+        /// </summary>
         public void Draw()
         {
             userInterfaceHandler.Draw(DrawableObject);
         }
 
+        /// <summary>
+        /// Returns the current selected UI.
+        /// </summary>
         public UserInterface UserInterface
         {
             get

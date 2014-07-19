@@ -16,6 +16,9 @@ namespace LabyrinthGameEngine
             this.fascade.GameState = GameState.New;
         }
 
+        /// <summary>
+        /// Returns the current state of the game.
+        /// </summary>
         public GameState GameState
         {
             get
@@ -24,11 +27,17 @@ namespace LabyrinthGameEngine
             }
         }
 
+        /// <summary>
+        /// Initializes and starts the game.
+        /// </summary>
         public void Initialize()
         {
             fascade.InitializeGame();
         }
 
+        /// <summary>
+        /// Updates the game.
+        /// </summary>
         public void Update()
         {
             Console.Write("\nEnter your move (L=left, R=right, D=down, U=up): ");
@@ -71,6 +80,9 @@ namespace LabyrinthGameEngine
             }
         }
 
+        /// <summary>
+        /// Draws the game board.
+        /// </summary>
         public void Draw()
         {
             fascade.DrawGameBoard();
