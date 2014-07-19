@@ -4,6 +4,10 @@
 
     internal class LabyrinthFactory : LabyrinthFactoryAbstract
     {
+        /// <summary>
+        /// Generates a new labyrinth.
+        /// </summary>
+        /// <returns>A new matrix representing the generated labyrinth.</returns>
         protected override char[,] GenerateMatrix()
         {
             char[,] generatedMatrix = new char[base.labyrinthRows, base.labyrinthCols];

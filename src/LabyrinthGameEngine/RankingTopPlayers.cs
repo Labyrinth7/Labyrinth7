@@ -5,6 +5,9 @@
     using System.Collections.Generic;
     using System.Text;
 
+    /// <summary>
+    /// Class representing the Player ranking system
+    /// </summary>
     internal sealed class RankingTopPlayers
     {
         private const int NUMBER_OF_TOP_PLAYERS = 5;
@@ -12,10 +15,14 @@
         private List<IPlayer> topPlayers = new List<IPlayer>();
 
         private static RankingTopPlayers instance = null;
+
         private RankingTopPlayers()
         {
         }
 
+        /// <summary>
+        /// Returns the instance of the RankingTopPlayer object.
+        /// </summary>
         internal static RankingTopPlayers Instance
         {
             get
@@ -28,6 +35,10 @@
             }
         }
 
+        /// <summary>
+        /// Adds a given player to the top players table.
+        /// </summary>
+        /// <param name="currentPlayer">Given player.</param>
         internal void AddToTopResults(IPlayer currentPlayer)
         {
             int currentNumberOfPlayersInTop = this.topPlayers.Count;
@@ -53,6 +64,10 @@
             }
         }
 
+        /// <summary>
+        /// Returns the top rated players.
+        /// </summary>
+        /// <returns>Score table with the top players as string.</returns>
         internal string GetTopResults()
         {
             StringBuilder topResults = new StringBuilder();
@@ -83,6 +98,10 @@
             return topResults.ToString();
         }
 
+        /// <summary>
+        /// Adds a given player to the score table.
+        /// </summary>
+        /// <param name="currentPlayer">Given player.</param>
         private void AddPlayer(IPlayer currentPlayer)
         {
             Console.WriteLine("Please enter your nickname");

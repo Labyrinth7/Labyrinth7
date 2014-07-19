@@ -35,6 +35,13 @@
 
         protected abstract char[,] GenerateMatrix();
 
+        /// <summary>
+        /// Checks if given labyrinth has valid exit.
+        /// </summary>
+        /// <param name="labyrinth">Given matrix, representing a labyrinth.</param>
+        /// <param name="positionX">Col position of the matrix.</param>
+        /// <param name="positionY">Row position of the matrix.</param>
+        /// <returns>True if the given labyrinth has exit and False if it hasnt.</returns>
         protected virtual bool CheckIfAnyExit(char[,] labyrinth, int positionX, int positionY)
         {
             char visitedSymbol = '0';
@@ -73,6 +80,15 @@
             return false;
         }
 
+        /// <summary>
+        /// Checks if a given position of the labyrinth is empty.
+        /// </summary>
+        /// <param name="labyrinth">Matrix, representing the given labyrinth.</param>
+        /// <param name="botStartPositionX">Current col position.</param>
+        /// <param name="botStartPositionY">Current row position.</param>
+        /// <param name="direction">Direction of movement.</param>
+        /// <param name="visitedSymbol">Character for visited position.</param>
+        /// <returns>True if the position is empty or False if the position is not empty.</returns>
         protected virtual bool IsEmptyCell(char[,] labyrinth, int botStartPositionX, int botStartPositionY, Direction direction, char visitedSymbol)
         {
             bool isEmpty = false;

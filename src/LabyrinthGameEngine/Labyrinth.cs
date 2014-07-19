@@ -48,6 +48,11 @@ namespace LabyrinthGameEngine
             }
         }
 
+        /// <summary>
+        /// Adds the player to the labyrinth at a given position.
+        /// </summary>
+        /// <param name="playerPosition">Given position of the player.</param>
+        /// <returns>The Labyrinth with added player as string.</returns>
         public string AddPlayerToLabyrinth(int[] playerPosition)
         {
             string labyrinthAsString = this.ToString();
