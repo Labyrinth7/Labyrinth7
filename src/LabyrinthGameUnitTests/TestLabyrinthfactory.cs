@@ -27,11 +27,9 @@
             testMatrix[2, 1] = 'x';
             testMatrix[2, 2] = '-';
 
-            Labyrinth labyrinth = new Labyrinth(testMatrix);
-
-            LabyrinthFactory factory = new LabyrinthFactory();
-            PrivateObject obj = new PrivateObject(factory);
-            var returnedvalue = obj.Invoke("CheckIfAnyExit", labyrinth, positionX, positionY);
+            LabyrinthFactory factory = new LabyrinthRectangularFactory();
+            PrivateObject factoryPrivate = new PrivateObject(factory);
+            var returnedvalue = factoryPrivate.Invoke("CheckIfAnyExit", testMatrix, positionX, positionY);
 
             Assert.AreEqual(false, returnedvalue);
         }
@@ -103,12 +101,9 @@
             testMatrix[6, 5] = 'x';
             testMatrix[6, 6] = 'x';
 
-            Labyrinth labyrinth = new Labyrinth(testMatrix);
-            
-
-            LabyrinthFactory factory = new LabyrinthFactory();
-            PrivateObject obj = new PrivateObject(factory);
-            var returnedvalue = obj.Invoke("CheckIfAnyExit", labyrinth, positionX, positionY);
+            LabyrinthFactory factory = new LabyrinthRectangularFactory();
+            PrivateObject factoryPrivate = new PrivateObject(factory);
+            var returnedvalue = factoryPrivate.Invoke("CheckIfAnyExit", testMatrix, positionX, positionY);
 
             Assert.AreEqual(false, returnedvalue);
         }

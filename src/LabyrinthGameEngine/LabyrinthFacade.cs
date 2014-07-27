@@ -25,7 +25,7 @@
 
         private LabyrinthFacade()
         {
-            LabyrinthFactory labyrinthFactory = new LabyrinthFactory();
+            LabyrinthFactory labyrinthFactory = new LabyrinthRectangularFactory();
             this.GameBoard = labyrinthFactory.CreateLabyrinth(LabyrinthGame.LABYRINTH_ROWS, LabyrinthGame.LABYRINTH_COLS);
 
             int initialPlayerPositionX = LabyrinthGame.LABYRINTH_COLS / 2;
@@ -170,12 +170,6 @@
             LabyrinthFacade.instance = null;
         }
 
-        //internal void RestartGame()
-        //{
-        //    LabyrinthFacade.instance = null;
-        //    this.GameState = GameState.Over;
-        //}
-
         /// <summary>
         /// Quits the game.
         /// </summary>
@@ -193,10 +187,10 @@
             {
                 case GameState.New:
                 case GameState.Running:
-                    AddLabyrinthAndPlayerToDrawingBuffer();
+                    this.AddLabyrinthAndPlayerToDrawingBuffer();
                     break;
                 case GameState.Win:
-                    AddLabyrinthAndPlayerToDrawingBuffer();
+                    this.AddLabyrinthAndPlayerToDrawingBuffer();
                     this.SuccessfulEscapeMessage();
                     break;
                 case GameState.TopResults:
@@ -214,7 +208,7 @@
         {
             RankingTopPlayers.Instance.AddToTopResults(this.Player);
             this.GameState = GameState.TopResults;
-            AddDrawableObjectsToBuffer();
+            this.AddDrawableObjectsToBuffer();
         }
 
         internal void TopResults()
@@ -224,7 +218,7 @@
 
         private void AddLabyrinthAndPlayerToDrawingBuffer()
         {
-            IDrawable labyrinthWithPlayer = new LabyrinthWithPlayer(this.GameBoard, this.Player);
+            IDrawable labyrinthWithPlayer = new LabyrinthWithPlayer(this.GameBoard, this.Player.Position);
             this.buffer.AddData(labyrinthWithPlayer);
         }
         private void SuccessfulEscapeMessage()
@@ -247,15 +241,21 @@
             this.Player.PositionY = newPosition[1];
             this.Player.Moves++;
 
+            this.CheckIfEscaped();
+
+            this.AddDrawableObjectsToBuffer();
+        }
+
+        private void CheckIfEscaped()
+        {
             if (this.Player.PositionX == 0 ||
-                this.Player.PositionX == LabyrinthGame.LABYRINTH_ROWS - 1 ||
+                this.Player.PositionX == LabyrinthGame.LABYRINTH_COLS - 1 ||
                 this.Player.PositionY == 0 ||
-                this.Player.PositionY == LabyrinthGame.LABYRINTH_COLS - 1)
+                this.Player.PositionY == LabyrinthGame.LABYRINTH_ROWS - 1)
             {
                 this.GameState = GameState.Win;
             }
 
-            this.AddDrawableObjectsToBuffer();
         }
     }
 }

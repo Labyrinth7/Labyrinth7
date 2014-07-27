@@ -1,39 +1,24 @@
 ﻿namespace LabyrinthGameEngine
 {
+    using LabyrinthGameEngine.Interfaces;
     using System;
 
-    internal class LabyrinthFactory : LabyrinthFactoryAbstract
+    public abstract class LabyrinthFactory
     {
-        /// <summary>
-        /// Generates a new labyrinth.
-        /// </summary>
-        /// <returns>A new matrix representing the generated labyrinth.</returns>
-        protected override char[,] GenerateMatrix()
-        {
-            char[,] generatedMatrix = new char[base.labyrinthRows, base.labyrinthCols];
+        protected char[,] currentMatrix = null;
 
-            Random randomInt = new Random();
+        protected int labyrinthRows = 0;
+        protected int labyrinthCols = 0;
 
-            for (int row = 0; row < base.labyrinthRows; row++)
-            {
-                for (int col = 0; col < base.labyrinthCols; col++)
-                {
-                    int randomNumber = randomInt.Next(2);
+        protected int centerOfCols = 0;
+        protected int centerOfRows = 0;
 
-                    if (randomNumber == 0)
-                    {
-                        generatedMatrix[row, col] = Labyrinth.BLANK_SYMBOL;
-                    }
-                    else if (randomNumber == 1)
-                    {
-                        generatedMatrix[row, col] = Labyrinth.WALL_SYMBOL;
-                    }
-                }
-            }
+        public abstract ILabyrinth CreateLabyrinth(int labyrinthRows, int labyrinthCols);
 
-            generatedMatrix[base.centerOfRows, base.centerOfCols] = Labyrinth.BLANK_SYMBOL;
+        protected abstract char[,] GenerateMatrix();
 
-            return generatedMatrix;
-        }
+        protected abstract bool CheckIfAnyExit(char[,] labyrinth, int positionX, int positionY);
+
+        protected abstract bool CheckForExitInTheGivenDirections(char[,] labyrinth, int botStartPositionX, int botStartPositionY, Direction direction, char visitedSymbol);
     }
 }

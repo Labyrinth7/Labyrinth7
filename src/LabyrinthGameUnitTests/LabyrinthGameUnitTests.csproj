@@ -57,6 +57,10 @@
     <Compile Include="TestLabyrinth.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GameHandler\GameHandler.csproj">
+      <Project>{12f6944a-465b-43af-8494-547b328c9ecd}</Project>
+      <Name>GameHandler</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LabyrinthGameEngine\LabyrinthGameEngine.csproj">
       <Project>{5da427f9-9891-40eb-85f8-19e00cc5f816}</Project>
       <Name>LabyrinthGameEngine</Name>

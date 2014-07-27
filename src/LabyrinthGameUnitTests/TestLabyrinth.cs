@@ -1,7 +1,9 @@
 ﻿namespace LabyrinthGameUnitTests
 {
     using System;
+
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+
     using LabyrinthGameEngine;
 
     [TestClass]
@@ -29,7 +31,9 @@
             Labyrinth labyrinth = new Labyrinth(testMatrix);
             
             int[] playerPosition = new int[] { 1, 1 };
-            string actualResult = labyrinth.AddPlayerToLabyrinth(playerPosition);
+
+            LabyrinthWithPlayer labyrinthWithPlayer = new LabyrinthWithPlayer(labyrinth, playerPosition);
+            string actualResult = (String) labyrinthWithPlayer.GetDrawableData();
 
             Assert.AreEqual(actualResult, expectedResult);
         }

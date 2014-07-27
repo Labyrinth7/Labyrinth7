@@ -55,9 +55,9 @@
     <Compile Include="Interfaces\IPlayer.cs" />
     <Compile Include="Labyrinth.cs" />
     <Compile Include="LabyrinthFacade.cs" />
-    <Compile Include="LabyrinthFactoryAbstract.cs" />
-    <Compile Include="LabyrinthGame.cs" />
     <Compile Include="LabyrinthFactory.cs" />
+    <Compile Include="LabyrinthGame.cs" />
+    <Compile Include="LabyrinthRectangularFactory.cs" />
     <Compile Include="Drawable\GameMessage.cs" />
     <Compile Include="Drawable\LabyrinthWithPlayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

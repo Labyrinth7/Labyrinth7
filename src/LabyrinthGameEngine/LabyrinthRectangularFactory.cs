@@ -3,28 +3,20 @@
     using LabyrinthGameEngine.Interfaces;
     using System;
 
-    internal abstract class LabyrinthFactoryAbstract
+    internal class LabyrinthRectangularFactory : LabyrinthFactory
     {
-        protected char[,] currentMatrix = null;
-
-        protected int labyrinthRows = 0;
-        protected int labyrinthCols = 0;
-
-        protected int centerOfCols = 0;
-        protected int centerOfRows = 0;
-
-        internal virtual ILabyrinth CreateLabyrinth(int labyrinthRows, int labyrinthCols)
+        public override ILabyrinth CreateLabyrinth(int labyrinthRows, int labyrinthCols)
         {
-            this.labyrinthRows = labyrinthRows;
-            this.labyrinthCols = labyrinthCols;
+            base.labyrinthRows = labyrinthRows;
+            base.labyrinthCols = labyrinthCols;
 
-            this.centerOfCols = this.labyrinthCols / 2;
-            this.centerOfRows = this.labyrinthRows / 2;
+            base.centerOfCols = base.labyrinthCols / 2;
+            base.centerOfRows = base.labyrinthRows / 2;
 
             int initialPlayerPositionX = centerOfCols;
             int initialPlayerPositionY = centerOfRows;
 
-            this.currentMatrix = this.GenerateMatrix();
+            base.currentMatrix = this.GenerateMatrix();
 
             while (!CheckIfAnyExit((char[,])this.currentMatrix.Clone(), initialPlayerPositionX, initialPlayerPositionY))
             {
@@ -34,7 +26,37 @@
             return new Labyrinth(this.currentMatrix);
         }
 
-        protected abstract char[,] GenerateMatrix();
+        /// <summary>
+        /// Generates a new labyrinth.
+        /// </summary>
+        /// <returns>A new matrix representing the generated labyrinth.</returns>
+        protected override char[,] GenerateMatrix()
+        {
+            char[,] generatedMatrix = new char[base.labyrinthRows, base.labyrinthCols];
+
+            Random randomInt = new Random();
+
+            for (int row = 0; row < base.labyrinthRows; row++)
+            {
+                for (int col = 0; col < base.labyrinthCols; col++)
+                {
+                    int randomNumber = randomInt.Next(2);
+
+                    if (randomNumber == 0)
+                    {
+                        generatedMatrix[row, col] = Labyrinth.BLANK_SYMBOL;
+                    }
+                    else if (randomNumber == 1)
+                    {
+                        generatedMatrix[row, col] = Labyrinth.WALL_SYMBOL;
+                    }
+                }
+            }
+
+            generatedMatrix[base.centerOfRows, base.centerOfCols] = Labyrinth.BLANK_SYMBOL;
+
+            return generatedMatrix;
+        }
 
         /// <summary>
         /// Checks if given labyrinth has valid exit.
@@ -43,7 +65,7 @@
         /// <param name="positionX">Col position of the matrix.</param>
         /// <param name="positionY">Row position of the matrix.</param>
         /// <returns>True if the given labyrinth has exit and False if it hasnt.</returns>
-        protected virtual bool CheckIfAnyExit(char[,] labyrinth, int positionX, int positionY)
+        protected override bool CheckIfAnyExit(char[,] labyrinth, int positionX, int positionY)
         {
             char visitedSymbol = '0';
 
@@ -90,7 +112,7 @@
         /// <param name="direction">Direction of movement.</param>
         /// <param name="visitedSymbol">Character for visited position.</param>
         /// <returns>True if the position is empty or False if the position is not empty.</returns>
-        protected virtual bool CheckForExitInTheGivenDirections(char[,] labyrinth, int botStartPositionX, int botStartPositionY, Direction direction, char visitedSymbol)
+        protected override bool CheckForExitInTheGivenDirections(char[,] labyrinth, int botStartPositionX, int botStartPositionY, Direction direction, char visitedSymbol)
         {
             bool isExit = false;
 
