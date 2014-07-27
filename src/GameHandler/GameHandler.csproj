@@ -40,16 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DrawEngine\DrawHandler.cs" />
-    <Compile Include="DrawEngine\UiHandlerConsole.cs" />
+    <Compile Include="DrawEngine\DrawableDataBuffer.cs" />
+    <Compile Include="DrawEngine\ConsoleUiDrawHandler.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameState.cs" />
-    <Compile Include="IDrawHandler.cs" />
-    <Compile Include="IGame.cs" />
+    <Compile Include="Interfaces\IGame.cs" />
     <Compile Include="Interfaces\IDrawable.cs" />
-    <Compile Include="Interfaces\IUserInterfaceHandler.cs" />
+    <Compile Include="Interfaces\IDrawHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserInterface.cs" />
+    <Compile Include="DrawEngine\UserInterface.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

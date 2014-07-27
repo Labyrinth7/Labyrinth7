@@ -58,10 +58,12 @@
     <Compile Include="LabyrinthFactoryAbstract.cs" />
     <Compile Include="LabyrinthGame.cs" />
     <Compile Include="LabyrinthFactory.cs" />
+    <Compile Include="Drawable\GameMessage.cs" />
+    <Compile Include="Drawable\LabyrinthWithPlayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\ObjectCopier.cs" />
     <Compile Include="Player.cs" />
-    <Compile Include="RankingTopPlayers.cs" />
+    <Compile Include="Drawable\RankingTopPlayers.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

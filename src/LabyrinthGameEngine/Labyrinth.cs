@@ -1,5 +1,7 @@
 namespace LabyrinthGameEngine
 {
+    using GameHandler.Interfaces;
+    using LabyrinthGameEngine.Interfaces;
     using System;
     using System.Collections;
     using System.Linq;
@@ -22,8 +24,8 @@ namespace LabyrinthGameEngine
             this.matrix = matrix;
         }
 
-        internal int Rows { get; private set; }
-        internal int Cols { get; private set; }
+        public int Rows { get; private set; }
+        public int Cols { get; private set; }
 
         public IEnumerator GetEnumerator()
         {
@@ -46,30 +48,6 @@ namespace LabyrinthGameEngine
             {
                 this.matrix[row, col] = value;
             }
-        }
-
-        /// <summary>
-        /// Adds the player to the labyrinth at a given position.
-        /// </summary>
-        /// <param name="playerPosition">Given position of the player.</param>
-        /// <returns>The Labyrinth with added player as string.</returns>
-        public string AddPlayerToLabyrinth(int[] playerPosition)
-        {
-            string labyrinthAsString = this.ToString();
-
-            char[] whitespace = new char[] { ' ' };
-            string[] cells = labyrinthAsString.Split(whitespace);
-
-            int rowNumber = playerPosition[1];
-            int colNumber = playerPosition[0];
-
-            int newLinesNumber = rowNumber;
-            int cellWithPlayerNumber = rowNumber * this.Cols + colNumber - newLinesNumber;
-
-            cells[cellWithPlayerNumber] = Labyrinth.PLAYER_SYMBOL.ToString();
-            string labyrinthWithPlayer = String.Join(" ", cells);
-
-            return labyrinthWithPlayer;
         }
 
         public override string ToString()

@@ -1,22 +1,21 @@
 ﻿namespace GameHandler
 {
     using GameHandler.DrawEngine;
+    using GameHandler.Interfaces;
     using System;
 
     public sealed class Game
     {
-        private static Game instance = null;
-        private UserInterface currentUi = UserInterface.Console;
         private IDrawHandler drawHandler = null;
         private IGame currentGame = null;
         private bool running = true;
+        private DrawableDataBuffer buffer = null;
 
-        private Game()
-        {
-        }
+        private static Game instance = null;
+        private Game() { }
 
         /// <summary>
-        /// Returns the instance of the Game object.
+        /// Returns the single instance of the Game object.
         /// </summary>
         public static Game Instance
         {
@@ -61,11 +60,17 @@
         /// <param name="userInterface">Selected UI.</param>
         public void Run(Type gameType, UserInterface userInterface)
         {
-            this.currentUi = userInterface;
-            this.drawHandler = new DrawHandler(currentUi);
             this.GameType = gameType;
-
             this.currentGame = (IGame)Activator.CreateInstance(this.GameType);
+
+            switch (userInterface)
+            {
+                case UserInterface.Console:
+                    this.drawHandler = new ConsoleUiDrawHandler();
+                    break;
+                default:
+                    throw new ArgumentException("The selected user interface is not available.");
+            }
 
             while (this.running)
             {
@@ -76,14 +81,21 @@
                         Initialize();
                         break;
                     case GameState.Running:
-                        Draw();
                         Update();
+                        break;
+                    case GameState.Win:
+                        this.CurrentGame.SuccessfulEscape();
+                        break;
+                    case GameState.TopResults:
+                        this.CurrentGame.TopResults();
                         break;
                     case GameState.Quit:
                         Console.WriteLine("Good bye!");
                         Environment.Exit(0);
                         break;
                 }
+
+                this.Draw();
             }
         }
 
@@ -114,8 +126,9 @@
         /// </summary>
         private void Draw()
         {
-            //drawHandler.Draw();
-            this.CurrentGame.Draw();
+            this.buffer = this.currentGame.GetBuffer();
+            this.drawHandler.Draw(this.buffer);
+            this.buffer.EmptyBuffer();
         }
     }
 }
