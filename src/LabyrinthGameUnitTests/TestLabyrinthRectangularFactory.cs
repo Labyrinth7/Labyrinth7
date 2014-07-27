@@ -5,7 +5,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
-    public class TestLabyrinthFactory
+    public class TestLabyrinthRectangularFactory
     {
         [TestMethod]
         public void TestLabyrinthNoExit1()
@@ -106,6 +106,14 @@
             var returnedvalue = factoryPrivate.Invoke("CheckIfAnyExit", testMatrix, positionX, positionY);
 
             Assert.AreEqual(false, returnedvalue);
+        }
+
+        [TestMethod]
+        public void TestGenerateLabyrinthMethod()
+        {
+            LabyrinthFactory factory = new LabyrinthRectangularFactory();
+            var labyrinth = factory.CreateLabyrinth(6, 6);
+            Assert.IsInstanceOfType(labyrinth, typeof(Labyrinth));
         }
     }
 }
