@@ -2,7 +2,7 @@
 {
     using System.Collections;
 
-    internal interface ILabyrinth : IEnumerable
+    public interface ILabyrinth : IEnumerable
     {
         new IEnumerator GetEnumerator();
 

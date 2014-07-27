@@ -7,8 +7,8 @@ namespace LabyrinthGameEngine
 
     public class LabyrinthGame : IGame
     {
-        public const int LABYRINTH_COLS = 20;
-        public const int LABYRINTH_ROWS = 7;
+        public const int LABYRINTH_COLS = 7;
+        public const int LABYRINTH_ROWS = 15;
 
         private LabyrinthFacade fascade = null;
 

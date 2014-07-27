@@ -7,12 +7,12 @@
     internal class LabyrinthWithPlayer : IDrawable
     {
         private ILabyrinth labyrinth = null;
-        private IPlayer player = null;
+        private int[] playerPosition = null;
 
-        internal LabyrinthWithPlayer(ILabyrinth labyrinth, IPlayer player)
+        internal LabyrinthWithPlayer(ILabyrinth labyrinth, int[] playerPosition)
         {
             this.labyrinth = labyrinth;
-            this.player = player;
+            this.playerPosition = playerPosition;
         }
         
         /// <summary>
@@ -28,8 +28,8 @@
             char[] whitespace = new char[] { ' ' };
             string[] cells = labyrinthAsString.Split(whitespace);
 
-            int rowNumber = this.player.Position[1];
-            int colNumber = this.player.Position[0];
+            int rowNumber = this.playerPosition[1];
+            int colNumber = this.playerPosition[0];
 
             int newLinesNumber = rowNumber;
             int cellWithPlayerNumber = rowNumber * this.labyrinth.Cols + colNumber - newLinesNumber;
