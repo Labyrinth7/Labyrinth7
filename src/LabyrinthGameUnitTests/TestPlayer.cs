@@ -14,6 +14,7 @@
         {
             testPlayer = new Player(1, 2);
         }
+
         [TestMethod]
         public void TestInitialiazingInstance()
         {

@@ -79,7 +79,7 @@
 
             if (this.topPlayers.Count == 0)
             {
-                topResults.Append("The scoreboard is empty! ");
+                topResults.Append("The scoreboard is empty!");
             }
             else
             {
@@ -89,7 +89,8 @@
                 this.topPlayers.Sort((player1, player2) => player1.Moves.CompareTo(player2.Moves));
 
                 int positionNumber = 1;
-                this.topPlayers.ForEach(player => {
+                this.topPlayers.ForEach(player =>
+                {
                     String line = String.Format(positionNumber + ". {1} ---> {0} moves", player.Moves, player.Name);
                     topResults.AppendLine(line);
                     positionNumber++;
@@ -105,9 +106,12 @@
         /// <param name="currentPlayer">Given player.</param>
         private void AddPlayer(IPlayer currentPlayer)
         {
-            Console.Write("Please enter your nickname: ");
-            string name = Console.ReadLine().Trim();
-            currentPlayer.Name = name;
+            if (currentPlayer.Name == string.Empty)
+            {
+                Console.Write("Please enter your nickname: ");
+                string name = Console.ReadLine().Trim();
+                currentPlayer.Name = name;
+            }
 
             this.topPlayers.Add(currentPlayer);
         }
