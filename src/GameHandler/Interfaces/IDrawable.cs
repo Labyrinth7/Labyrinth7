@@ -1,7 +1,9 @@
 ﻿namespace GameHandler.Interfaces
 {
+    using System;
+
     public interface IDrawable
     {
-        void ToDrawingBuffer();
+        Object GetDrawableData();
     }
 }

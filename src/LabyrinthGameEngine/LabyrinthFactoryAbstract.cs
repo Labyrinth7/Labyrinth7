@@ -1,5 +1,6 @@
 ﻿namespace LabyrinthGameEngine
 {
+    using LabyrinthGameEngine.Interfaces;
     using System;
 
     internal abstract class LabyrinthFactoryAbstract
@@ -51,27 +52,27 @@
 
             labyrinth[botStartPositionY, botStartPositionX] = visitedSymbol;
 
-            // Border cases START
+            #region Border cases START
             if (botStartPositionX == 0 ||
-                botStartPositionX == this.labyrinthRows - 1 ||
+                botStartPositionX == this.labyrinthCols - 1 ||
                 botStartPositionY == 0 ||
-                botStartPositionY == this.labyrinthCols - 1)
+                botStartPositionY == this.labyrinthRows - 1)
             {
                 return true;
             }
 
-            if (labyrinth[botStartPositionY + 1, botStartPositionX] == Labyrinth.WALL_SYMBOL &&
-                labyrinth[botStartPositionY, botStartPositionX + 1] == Labyrinth.WALL_SYMBOL &&
-                labyrinth[botStartPositionY - 1, botStartPositionX] == Labyrinth.WALL_SYMBOL &&
-                labyrinth[botStartPositionY, botStartPositionX - 1] == Labyrinth.WALL_SYMBOL)
+            if ((labyrinth[botStartPositionY + 1, botStartPositionX] == Labyrinth.WALL_SYMBOL || labyrinth[botStartPositionY + 1, botStartPositionX] == visitedSymbol) &&
+                (labyrinth[botStartPositionY, botStartPositionX + 1] == Labyrinth.WALL_SYMBOL || labyrinth[botStartPositionY, botStartPositionX + 1] == visitedSymbol) &&
+                (labyrinth[botStartPositionY - 1, botStartPositionX] == Labyrinth.WALL_SYMBOL || labyrinth[botStartPositionY - 1, botStartPositionX] == visitedSymbol) &&
+                (labyrinth[botStartPositionY, botStartPositionX - 1] == Labyrinth.WALL_SYMBOL || labyrinth[botStartPositionY, botStartPositionX - 1] == visitedSymbol))
             {
                 return false;
             }
-            // Border cases END
+            #endregion Border cases END
 
             foreach (Direction direction in Enum.GetValues(typeof(Direction)))
             {
-                if (IsEmptyCell(labyrinth, botStartPositionX, botStartPositionY, direction, visitedSymbol))
+                if (CheckForExitInTheGivenDirections(labyrinth, botStartPositionX, botStartPositionY, direction, visitedSymbol))
                 {
                     return true;
                 }
@@ -81,7 +82,7 @@
         }
 
         /// <summary>
-        /// Checks if a given position of the labyrinth is empty.
+        /// Checks if any exit from the labyrinth in the given direction.
         /// </summary>
         /// <param name="labyrinth">Matrix, representing the given labyrinth.</param>
         /// <param name="botStartPositionX">Current col position.</param>
@@ -89,9 +90,9 @@
         /// <param name="direction">Direction of movement.</param>
         /// <param name="visitedSymbol">Character for visited position.</param>
         /// <returns>True if the position is empty or False if the position is not empty.</returns>
-        protected virtual bool IsEmptyCell(char[,] labyrinth, int botStartPositionX, int botStartPositionY, Direction direction, char visitedSymbol)
+        protected virtual bool CheckForExitInTheGivenDirections(char[,] labyrinth, int botStartPositionX, int botStartPositionY, Direction direction, char visitedSymbol)
         {
-            bool isEmpty = false;
+            bool isExit = false;
 
             int nextPositionY = botStartPositionY;
             int nextPositionX = botStartPositionX;
@@ -114,14 +115,12 @@
 
             if (labyrinth[nextPositionY, nextPositionX] == Labyrinth.BLANK_SYMBOL)
             {
-                labyrinth[nextPositionY, nextPositionX] = visitedSymbol;
-
                 if (CheckIfAnyExit(labyrinth, nextPositionX, nextPositionY))
                 {
-                    isEmpty = true;
+                    isExit = true;
                 }
             }
-            return isEmpty;
+            return isExit;
         }
     }
 }

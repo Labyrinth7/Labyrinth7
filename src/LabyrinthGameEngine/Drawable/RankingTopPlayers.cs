@@ -1,6 +1,9 @@
 ﻿namespace LabyrinthGameEngine
 {
+    using GameHandler.Interfaces;
+
     using LabyrinthGameEngine.Interfaces;
+
     using System;
     using System.Collections.Generic;
     using System.Text;
@@ -8,7 +11,7 @@
     /// <summary>
     /// Class representing the Player ranking system
     /// </summary>
-    internal sealed class RankingTopPlayers
+    internal sealed class RankingTopPlayers : IDrawable
     {
         private const int NUMBER_OF_TOP_PLAYERS = 5;
 
@@ -68,7 +71,7 @@
         /// Returns the top rated players.
         /// </summary>
         /// <returns>Score table with the top players as string.</returns>
-        internal string GetTopResults()
+        public object GetDrawableData()
         {
             StringBuilder topResults = new StringBuilder();
 
@@ -91,8 +94,6 @@
                     topResults.AppendLine(line);
                     positionNumber++;
                 });
-
-                topResults.Append(Environment.NewLine);
             }
 
             return topResults.ToString();
@@ -104,7 +105,7 @@
         /// <param name="currentPlayer">Given player.</param>
         private void AddPlayer(IPlayer currentPlayer)
         {
-            Console.WriteLine("Please enter your nickname");
+            Console.Write("Please enter your nickname: ");
             string name = Console.ReadLine().Trim();
             currentPlayer.Name = name;
 

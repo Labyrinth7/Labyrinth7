@@ -1,7 +1,11 @@
 ﻿namespace LabyrinthGameEngine
 {
     using GameHandler;
+    using GameHandler.DrawEngine;
+    using GameHandler.Interfaces;
+
     using LabyrinthGameEngine.Interfaces;
+
     using System;
     using System.Linq;
     using System.Text;
@@ -13,8 +17,9 @@
     {
         private static LabyrinthFacade instance;
 
-        private IPlayer player;
         private GameState gameState;
+        private IPlayer player = null;
+        private DrawableDataBuffer buffer = new DrawableDataBuffer();
 
         private int[] newPosition = null;
 
@@ -94,16 +99,19 @@
         /// </summary>
         internal void InitializeGame()
         {
-            StringBuilder initialMessage = new StringBuilder();
+            StringBuilder initialMessageBuilder = new StringBuilder();
 
-            initialMessage.AppendLine("Welcome to \"Labyrinth\" game. Your goal is to escape!");
-            initialMessage.AppendLine(new String('-', 50));
-            initialMessage.AppendLine("Command 'top' : ".PadLeft(20) + "prints the top scoreboard.");
-            initialMessage.AppendLine("Command 'restart' : ".PadLeft(20) + "starts a new game.");
-            initialMessage.AppendLine("Command 'exit' : ".PadLeft(20) + "quits the game.");
-            initialMessage.AppendLine(new String('-', 50));
+            initialMessageBuilder.AppendLine("Welcome to \"Labyrinth\" game. Your goal is to escape!");
+            initialMessageBuilder.AppendLine(new String('-', 50));
+            initialMessageBuilder.AppendLine("Command 'top' : ".PadLeft(20) + "prints the top scoreboard.");
+            initialMessageBuilder.AppendLine("Command 'restart' : ".PadLeft(20) + "starts a new game.");
+            initialMessageBuilder.AppendLine("Command 'exit' : ".PadLeft(20) + "quits the game.");
+            initialMessageBuilder.AppendLine(new String('-', 50));
 
-            Console.WriteLine(initialMessage.ToString());
+            GameMessage initialMessage = new GameMessage(initialMessageBuilder.ToString());
+            this.buffer.AddData(initialMessage);
+
+            this.AddDrawableObjectsToBuffer();
 
             this.GameState = GameState.Running;
         }
@@ -149,9 +157,7 @@
         /// </summary>
         internal void DisplayTopPlayers()
         {
-            string topResults = RankingTopPlayers.Instance.GetTopResults();
-            Console.WriteLine(topResults);
-            Console.WriteLine();
+            this.buffer.AddData(RankingTopPlayers.Instance);
         }
 
         /// <summary>
@@ -164,6 +170,12 @@
             LabyrinthFacade.instance = null;
         }
 
+        //internal void RestartGame()
+        //{
+        //    LabyrinthFacade.instance = null;
+        //    this.GameState = GameState.Over;
+        //}
+
         /// <summary>
         /// Quits the game.
         /// </summary>
@@ -175,12 +187,53 @@
         /// <summary>
         /// Draws the labyrinth.
         /// </summary>
-        internal void DrawGameBoard()
+        internal void AddDrawableObjectsToBuffer()
         {
-            string labyrinthWithPlayer = this.GameBoard.AddPlayerToLabyrinth(this.Player.Position);
-            Console.WriteLine(labyrinthWithPlayer);
+            switch (this.gameState)
+            {
+                case GameState.New:
+                case GameState.Running:
+                    AddLabyrinthAndPlayerToDrawingBuffer();
+                    break;
+                case GameState.Win:
+                    AddLabyrinthAndPlayerToDrawingBuffer();
+                    this.SuccessfulEscapeMessage();
+                    break;
+                case GameState.TopResults:
+                    this.buffer.AddData(RankingTopPlayers.Instance);
+                    break;
+            }
         }
 
+        internal DrawableDataBuffer GetBuffer()
+        {
+            return this.buffer;
+        }
+
+        internal void SuccessfulEscape()
+        {
+            RankingTopPlayers.Instance.AddToTopResults(this.Player);
+            this.GameState = GameState.TopResults;
+            AddDrawableObjectsToBuffer();
+        }
+
+        internal void TopResults()
+        {
+            this.RestartGame();
+        }
+
+        private void AddLabyrinthAndPlayerToDrawingBuffer()
+        {
+            IDrawable labyrinthWithPlayer = new LabyrinthWithPlayer(this.GameBoard, this.Player);
+            this.buffer.AddData(labyrinthWithPlayer);
+        }
+        private void SuccessfulEscapeMessage()
+        {
+            String sucessfulEscapingString = String.Format("\nCongratulations you escaped with {0} moves.\n", this.Player.Moves);
+            GameMessage sucessfulEscapingMessage = new GameMessage(sucessfulEscapingString);
+            this.buffer.AddData(sucessfulEscapingMessage);
+        }
+        
         private void Move(ILabyrinth labyrinth, int[] newPosition)
         {
             bool isValidMove = labyrinth[newPosition[1], newPosition[0]] == Labyrinth.BLANK_SYMBOL;
@@ -199,22 +252,10 @@
                 this.Player.PositionY == 0 ||
                 this.Player.PositionY == LabyrinthGame.LABYRINTH_COLS - 1)
             {
-                SuccessfulEscape();
+                this.GameState = GameState.Win;
             }
-        }
 
-        private void SuccessfulEscape()
-        {
-            this.GameBoard.AddPlayerToLabyrinth(this.Player.Position);
-
-            Console.WriteLine("\nCongratulations you escaped with {0} moves.\n", this.Player.Moves);
-
-            RankingTopPlayers.Instance.AddToTopResults(this.Player);
-            string topResults = RankingTopPlayers.Instance.GetTopResults();
-            Console.WriteLine(topResults);
-
-            LabyrinthFacade.instance = null;
-            this.GameState = GameState.Over;
+            this.AddDrawableObjectsToBuffer();
         }
     }
 }

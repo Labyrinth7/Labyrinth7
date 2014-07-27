@@ -7,6 +7,8 @@
     {
         New,
         Running,
+        Win,
+        TopResults,
         Over,
         Quit
     }

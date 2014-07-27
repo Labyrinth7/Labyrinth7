@@ -1,11 +1,13 @@
 namespace LabyrinthGameEngine
 {
     using GameHandler;
+    using GameHandler.DrawEngine;
+    using GameHandler.Interfaces;
     using System;
 
     public class LabyrinthGame : IGame
     {
-        public const int LABYRINTH_COLS = 7;
+        public const int LABYRINTH_COLS = 20;
         public const int LABYRINTH_ROWS = 7;
 
         private LabyrinthFacade fascade = null;
@@ -32,7 +34,7 @@ namespace LabyrinthGameEngine
         /// </summary>
         public void Initialize()
         {
-            fascade.InitializeGame();
+            this.fascade.InitializeGame();
         }
 
         /// <summary>
@@ -80,12 +82,24 @@ namespace LabyrinthGameEngine
             }
         }
 
-        /// <summary>
-        /// Draws the game board.
-        /// </summary>
-        public void Draw()
+        public void SuccessfulEscape()
         {
-            fascade.DrawGameBoard();
+            this.fascade.SuccessfulEscape();
+        }
+
+        public void TopResults()
+        {
+            this.fascade.TopResults();
+        }
+
+        public void Restart()
+        {
+            this.fascade.RestartGame();
+        }
+
+        public DrawableDataBuffer GetBuffer()
+        {
+            return this.fascade.GetBuffer();
         }
     }
 }

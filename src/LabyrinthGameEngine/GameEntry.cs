@@ -1,6 +1,7 @@
 ﻿namespace LabyrinthGameEngine
 {
     using GameHandler;
+    using GameHandler.DrawEngine;
     using System;
 
     public static class GameEntry

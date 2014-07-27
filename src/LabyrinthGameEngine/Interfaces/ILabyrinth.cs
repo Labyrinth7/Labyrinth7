@@ -1,10 +1,10 @@
-﻿namespace LabyrinthGameEngine
+﻿namespace LabyrinthGameEngine.Interfaces
 {
     using System.Collections;
 
     internal interface ILabyrinth : IEnumerable
     {
-        IEnumerator GetEnumerator();
+        new IEnumerator GetEnumerator();
 
         char this[int row, int col]
         {
@@ -12,7 +12,8 @@
             set;
         }
 
-        string AddPlayerToLabyrinth(int[] playerPosition);
+        int Cols { get; }
+        int Rows { get; }
 
         string ToString();
     }
